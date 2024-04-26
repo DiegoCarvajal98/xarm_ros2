@@ -43,6 +43,10 @@ RUN source /xarm_ws/install/setup.bash \
 COPY ./docker/entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
 
+COPY ./Hiwonder_xArm_ESP32 /overlay_ws/src/
+RUN rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
+    && colcon build --symlink-install
+
 ######################################
 # Development image for xArm control #
 ######################################
@@ -68,42 +72,11 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && mkdir -p /home/${USERNAME} \
     && chown -R ${USER_UID}:${USER_GID} /home/${USERNAME}
 
+RUN sudo usermod -aG dialout ${USERNAME}
+
 # Set the ownership of the overlay workspace to the new user
 RUN chown -R ${USER_UID}:${USER_GID} /overlay_ws/
 
 # Set the user and source entrypoint in the user's .bashrc file
 USER ${USERNAME}
 RUN echo "source /entrypoint.sh" >> /home/${USERNAME}/.bashrc
-
-##########################################################################################################
-## Create the user
-#RUN groupadd --gid $USER_GID $USERNAME \
-#    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-#    #
-#    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
-#    && apt-get update \
-#    && apt-get install -y sudo \
-#    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-#    && chmod 0440 /etc/sudoers.d/$USERNAME
-#RUN apt-get update && apt-get upgrade -y
-#RUN apt-get install -y python3-pip \
-#    && apt-get install -y git
-#
-#ENV SHELL /bin/bash
-#
-#WORKDIR /root/xarm_ws
-#
-#RUN git clone -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
-#
-#RUN apt-get update \
-#    && rosdep update \
-#    && rosdep install --from-paths src --ignore-src -r -y 
-#
-#RUN colcon build \
-#    && . install/setup.bash
-#
-## [Optional] Set the default user. Omit if you want to keep the default as root.
-#USER $USERNAME
-#
-#RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-#CMD ["/bin/bash"]

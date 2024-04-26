@@ -53,5 +53,7 @@ services:
       - ./.colcon/build/:/overlay_ws/build/:rw
       - ./.colcon/install/:/overlay_ws/install/:rw
       - ./.colcon/log/:/overlay_ws/log/:rw
+      - ./ros2.repos:/overlay_ws/src/ros2.repos:rw
+      - ./uros/:/overlay_ws/src/uros/:rw
     user: ${USERNAME:-diego}
     command: sleep infinity
