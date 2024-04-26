@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   # Base image containing dependencies.
   base:
@@ -47,11 +46,14 @@ services:
         - USER_UID=${USER_UID:-1000}
         - USER_GID=${USER_UID:-1000}
         # Set correct USERNAME
-        - USERNAME=${USERNAME:-diego}
+        - USERNAME=${USERNAME:-robotics}
     volumes:
       # Mount colcon build artifacts for faster rebuilds
       - ./.colcon/build/:/overlay_ws/build/:rw
       - ./.colcon/install/:/overlay_ws/install/:rw
       - ./.colcon/log/:/overlay_ws/log/:rw
-    user: ${USERNAME:-diego}
+      - ./xarm_description/:/overlay_ws/src/xarm_description/:rw
+      - ./xarm_moveit_config/:/overlay_ws/src/xarm_moveit_config/:rw
+      - ./xarm_gazebo/:/overlay_ws/src/xarm_gazebo/:rw
+    user: ${USERNAME:-robotics}
     command: sleep infinity

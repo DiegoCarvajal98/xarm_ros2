@@ -18,12 +18,14 @@ RUN vcs import < dependencies.repos
 WORKDIR /xarm_ws
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
     && apt-get update -y \
+    && rosdep update \
     && rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
     && colcon build --symlink-install
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp
+    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+    ros-${ROS_DISTRO}-moveit-*
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 ##################################
@@ -38,6 +40,9 @@ WORKDIR /overlay_ws
 RUN source /xarm_ws/install/setup.bash \
     rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
     && colcon build --symlink-install
+COPY ./xarm_description/ /overlay_ws/src/xarm_description/
+COPY ./xarm_moveit_config/ /overlay_ws/src/xarm_moveit_config/
+COPY ./xarm_gazebo/ /overlay_ws/src/xarm_gazebo/
 
 # Setup entrypoint
 COPY ./docker/entrypoint.sh /
@@ -50,7 +55,7 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 FROM overlay AS dev 
 
 # Change USERNAME to the host USERNAME
-ARG USERNAME=diego
+ARG USERNAME=robotics
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
@@ -74,36 +79,3 @@ RUN chown -R ${USER_UID}:${USER_GID} /overlay_ws/
 # Set the user and source entrypoint in the user's .bashrc file
 USER ${USERNAME}
 RUN echo "source /entrypoint.sh" >> /home/${USERNAME}/.bashrc
-
-##########################################################################################################
-## Create the user
-#RUN groupadd --gid $USER_GID $USERNAME \
-#    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-#    #
-#    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
-#    && apt-get update \
-#    && apt-get install -y sudo \
-#    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-#    && chmod 0440 /etc/sudoers.d/$USERNAME
-#RUN apt-get update && apt-get upgrade -y
-#RUN apt-get install -y python3-pip \
-#    && apt-get install -y git
-#
-#ENV SHELL /bin/bash
-#
-#WORKDIR /root/xarm_ws
-#
-#RUN git clone -b ${ROS_DISTRO} https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
-#
-#RUN apt-get update \
-#    && rosdep update \
-#    && rosdep install --from-paths src --ignore-src -r -y 
-#
-#RUN colcon build \
-#    && . install/setup.bash
-#
-## [Optional] Set the default user. Omit if you want to keep the default as root.
-#USER $USERNAME
-#
-#RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-#CMD ["/bin/bash"]
