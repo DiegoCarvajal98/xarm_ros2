@@ -1,1 +1,1 @@
-/overlay_ws/install/xarm_description:/overlay_ws/install/micro_ros_agent:/overlay_ws/install/micro_ros_msgs:/xarm_ws/install/micro_ros_setup:/opt/ros/humble
+/overlay_ws/install/xarm_gazebo:/overlay_ws/install/xarm_moveit_config:/overlay_ws/install/xarm_description:/overlay_ws/install/micro_ros_agent:/overlay_ws/install/micro_ros_msgs:/xarm_ws/install/micro_ros_setup:/opt/ros/humble

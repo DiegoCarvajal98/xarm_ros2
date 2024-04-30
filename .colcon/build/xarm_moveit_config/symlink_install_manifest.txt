@@ -28,6 +28,7 @@
 /overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/moveit_controllers.yaml
 /overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/pilz_cartesian_limits.yaml
 /overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/ros2_controllers.yaml
+/overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/sensors_3d.yaml
 /overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/xarm.ros2_control.xacro
 /overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/xarm.srdf
 /overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/config/xarm.urdf.xacro

@@ -10,12 +10,17 @@
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
     <group name="xarm">
+        <link name="xarm_base_link"/>
+        <link name="xarm_6_link"/>
+        <link name="xarm_5_link"/>
+        <link name="xarm_4_link"/>
+        <link name="xarm_3_link"/>
+        <link name="xarm_2_link"/>
         <joint name="xarm_6_joint"/>
         <joint name="xarm_5_joint"/>
         <joint name="xarm_4_joint"/>
         <joint name="xarm_3_joint"/>
         <joint name="xarm_2_joint"/>
-        <chain base_link="xarm_base_link" tip_link="xarm_2_link"/>
     </group>
     <group name="xgripper">
         <joint name="finger_l_joint"/>
@@ -38,7 +43,7 @@
         <joint name="finger_r_joint" value="0.026"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="xgripper" parent_link="xarm_2_link" group="xgripper" parent_group="xarm"/>
+    <end_effector name="xgripper" parent_link="xarm_2_link" group="xgripper"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="finger_l" link2="finger_r" reason="Never"/>
     <disable_collisions link1="finger_l" link2="gripper_base" reason="Adjacent"/>

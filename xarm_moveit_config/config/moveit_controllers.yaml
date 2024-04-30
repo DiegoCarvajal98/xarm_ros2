@@ -17,6 +17,8 @@ moveit_simple_controller_manager:
       - xarm_4_joint
       - xarm_3_joint
       - xarm_2_joint
+    action_ns: follow_joint_trajectory
+    default: true
   xgripper_controller:
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory
@@ -24,3 +26,5 @@ moveit_simple_controller_manager:
     joints:
       - finger_l_joint
       - finger_r_joint
+    action_ns: follow_joint_trajectory
+    default: true

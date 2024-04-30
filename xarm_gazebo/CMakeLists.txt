@@ -14,6 +14,7 @@ find_package(xarm_moveit_config REQUIRED)
 find_package(gazebo_ros2_control REQUIRED)
 find_package(ros2_control REQUIRED)
 find_package(ros2_controllers REQUIRED)
+find_package(gazebo_ros REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
