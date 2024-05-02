@@ -74,30 +74,11 @@ def launch_setup(context, *args, **kwargs):
         [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
     )
 
-    robot_description_content = Command(
-        [
-            PathJoinSubstitution([FindExecutable(name="xacro")]),
-            " ",
-            PathJoinSubstitution(
-                [FindPackageShare(description_package), "config", description_file]
-            ),
-            " ",
-            "prefix:=",
-            prefix,
-            " ",
-            # "sim_gazebo:=true",
-            # " ",
-            "simulation_controllers:=",
-            initial_joint_controllers,
-        ]
-    )
-    robot_description = {"robot_description": robot_description_content}
-
-    robot_state_publisher_node = Node(
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        output="both",
-        parameters=[{"use_sim_time": True}, robot_description],
+    robot_state_publisher_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            [FindPackageShare(moveit_config_package), "/launch", "/rsp.launch.py"]
+        ),
+        launch_arguments={"sim_gazebo": "true",}.items(),
     )
 
     rviz_node = Node(
