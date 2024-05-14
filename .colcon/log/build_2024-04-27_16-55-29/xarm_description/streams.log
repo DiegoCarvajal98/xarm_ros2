@@ -1,0 +1,35 @@
+[0.022s] Invoking command in '/overlay_ws/build/xarm_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /overlay_ws/build/xarm_description -- -j12 -l12
+[0.184s] Invoked command in '/overlay_ws/build/xarm_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /overlay_ws/build/xarm_description -- -j12 -l12
+[0.214s] Invoking command in '/overlay_ws/build/xarm_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /overlay_ws/build/xarm_description
+[0.220s] -- Install configuration: ""
+[0.221s] -- Execute custom install script
+[0.222s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//launch/display.launch.py
+[0.222s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/base.stl
+[0.222s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/finger_l.stl
+[0.222s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/finger_r.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/gripper_base.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/link2.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/link3.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/link4.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/link5.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//meshes/stls/link6.stl
+[0.223s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//rviz/view_robot.rviz
+[0.224s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//urdf/gripper.urdf.xacro
+[0.224s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//urdf/xarm.urdf.xacro
+[0.224s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description//urdf/xarm_world.urdf.xacro
+[0.224s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/ament_index/resource_index/package_run_dependencies/xarm_description
+[0.225s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/ament_index/resource_index/parent_prefix_path/xarm_description
+[0.225s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/environment/ament_prefix_path.sh
+[0.225s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/environment/ament_prefix_path.dsv
+[0.225s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/environment/path.sh
+[0.225s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/environment/path.dsv
+[0.226s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.bash
+[0.226s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.sh
+[0.226s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.zsh
+[0.226s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.dsv
+[0.226s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/package.dsv
+[0.236s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/ament_index/resource_index/packages/xarm_description
+[0.236s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/cmake/xarm_descriptionConfig.cmake
+[0.236s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/cmake/xarm_descriptionConfig-version.cmake
+[0.236s] -- Up-to-date symlink: /overlay_ws/install/xarm_description/share/xarm_description/package.xml
+[0.238s] Invoked command in '/overlay_ws/build/xarm_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /overlay_ws/build/xarm_description

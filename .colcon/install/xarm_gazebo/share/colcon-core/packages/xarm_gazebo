@@ -1,0 +1,1 @@
+controller_manager:gazebo_ros:gazebo_ros2_control:rclcpp:ros2_control:ros2_controllers:xarm_description:xarm_moveit_config

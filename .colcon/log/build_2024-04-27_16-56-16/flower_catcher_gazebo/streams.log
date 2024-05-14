@@ -1,0 +1,40 @@
+[0.012s] Invoking command in '/overlay_ws/build/flower_catcher_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /overlay_ws/src/xarm_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/overlay_ws/install/flower_catcher_gazebo
+[0.028s] -- Found ament_cmake: 1.3.8 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.140s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.148s] -- Found xarm_description: 0.0.0 (/overlay_ws/install/xarm_description/share/xarm_description/cmake)
+[0.152s] -- Found rclcpp: 16.0.8 (/opt/ros/humble/share/rclcpp/cmake)
+[0.233s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.244s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.257s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.278s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.311s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.417s] -- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.423s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[0.475s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.494s] -- Looking for pthread.h
+[0.581s] -- Looking for pthread.h - found
+[0.581s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.651s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.652s] -- Found Threads: TRUE  
+[0.860s] -- Found controller_manager: 2.40.0 (/opt/ros/humble/share/controller_manager/cmake)
+[2.156s] -- Found xarm_moveit_config: 0.3.0 (/overlay_ws/install/xarm_moveit_config/share/xarm_moveit_config/cmake)
+[2.172s] [31mCMake Error at CMakeLists.txt:14 (find_package):
+[2.172s]   By not providing "Findgazebo_ros2_control.cmake" in CMAKE_MODULE_PATH this
+[2.172s]   project has asked CMake to find a package configuration file provided by
+[2.172s]   "gazebo_ros2_control", but CMake did not find one.
+[2.172s] 
+[2.172s]   Could not find a package configuration file provided by
+[2.172s]   "gazebo_ros2_control" with any of the following names:
+[2.172s] 
+[2.172s]     gazebo_ros2_controlConfig.cmake
+[2.172s]     gazebo_ros2_control-config.cmake
+[2.173s] 
+[2.173s]   Add the installation prefix of "gazebo_ros2_control" to CMAKE_PREFIX_PATH
+[2.173s]   or set "gazebo_ros2_control_DIR" to a directory containing one of the above
+[2.173s]   files.  If "gazebo_ros2_control" provides a separate development package or
+[2.173s]   SDK, be sure it has been installed.
+[2.173s] 
+[2.173s] [0m
+[2.173s] -- Configuring incomplete, errors occurred!
+[2.173s] See also "/overlay_ws/build/flower_catcher_gazebo/CMakeFiles/CMakeOutput.log".
+[2.180s] Invoked command in '/overlay_ws/build/flower_catcher_gazebo' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /overlay_ws/src/xarm_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/overlay_ws/install/flower_catcher_gazebo

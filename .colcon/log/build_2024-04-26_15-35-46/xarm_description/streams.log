@@ -1,0 +1,51 @@
+[0.011s] Invoking command in '/overlay_ws/build/xarm_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /overlay_ws/src/xarm_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/overlay_ws/install/xarm_description
+[0.063s] -- The C compiler identification is GNU 11.4.0
+[0.114s] -- The CXX compiler identification is GNU 11.4.0
+[0.120s] -- Detecting C compiler ABI info
+[0.247s] -- Detecting C compiler ABI info - done
+[0.259s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.259s] -- Detecting C compile features
+[0.260s] -- Detecting C compile features - done
+[0.265s] -- Detecting CXX compiler ABI info
+[0.342s] -- Detecting CXX compiler ABI info - done
+[0.348s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.349s] -- Detecting CXX compile features
+[0.349s] -- Detecting CXX compile features - done
+[0.352s] -- Found ament_cmake: 1.3.8 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.493s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.552s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.583s] -- Found xacro: 2.0.8 (/opt/ros/humble/share/xacro/cmake)
+[0.585s] -- Found ament_lint_auto: 0.12.10 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.667s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.668s] -- Added test 'lint_cmake' to check CMake code style
+[0.668s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.670s] -- Added test 'xmllint' to check XML markup files
+[0.671s] -- Configuring done
+[0.674s] -- Generating done
+[0.674s] -- Build files have been written to: /overlay_ws/build/xarm_description
+[0.678s] Invoked command in '/overlay_ws/build/xarm_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /overlay_ws/src/xarm_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/overlay_ws/install/xarm_description
+[0.679s] Invoking command in '/overlay_ws/build/xarm_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /overlay_ws/build/xarm_description -- -j12 -l12
+[0.714s] Invoked command in '/overlay_ws/build/xarm_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /overlay_ws/build/xarm_description -- -j12 -l12
+[0.742s] Invoking command in '/overlay_ws/build/xarm_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /overlay_ws/build/xarm_description
+[0.749s] -- Install configuration: ""
+[0.749s] -- Execute custom install script
+[0.749s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description//launch/display.launch.py
+[0.757s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description//rviz/view_robot.rviz
+[0.765s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description//urdf/xarm.urdf.xacro
+[0.773s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description//urdf/xarm_world.urdf.xacro
+[0.781s] -- Symlinking: /overlay_ws/install/xarm_description/share/ament_index/resource_index/package_run_dependencies/xarm_description
+[0.789s] -- Symlinking: /overlay_ws/install/xarm_description/share/ament_index/resource_index/parent_prefix_path/xarm_description
+[0.797s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/environment/ament_prefix_path.sh
+[0.805s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/environment/ament_prefix_path.dsv
+[0.813s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/environment/path.sh
+[0.821s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/environment/path.dsv
+[0.830s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.bash
+[0.838s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.sh
+[0.847s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.zsh
+[0.855s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/local_setup.dsv
+[0.863s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/package.dsv
+[0.872s] -- Symlinking: /overlay_ws/install/xarm_description/share/ament_index/resource_index/packages/xarm_description
+[0.879s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/cmake/xarm_descriptionConfig.cmake
+[0.887s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/cmake/xarm_descriptionConfig-version.cmake
+[0.895s] -- Symlinking: /overlay_ws/install/xarm_description/share/xarm_description/package.xml
+[0.905s] Invoked command in '/overlay_ws/build/xarm_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /overlay_ws/build/xarm_description

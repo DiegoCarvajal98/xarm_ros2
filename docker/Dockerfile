@@ -18,12 +18,14 @@ RUN vcs import < dependencies.repos
 WORKDIR /xarm_ws
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
     && apt-get update -y \
+    && rosdep update \
     && rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
     && colcon build --symlink-install
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp
+    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+    ros-${ROS_DISTRO}-moveit-*
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 ##################################
@@ -38,6 +40,9 @@ WORKDIR /overlay_ws
 RUN source /xarm_ws/install/setup.bash \
     rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
     && colcon build --symlink-install
+COPY ./xarm_description/ /overlay_ws/src/xarm_description/
+COPY ./xarm_moveit_config/ /overlay_ws/src/xarm_moveit_config/
+COPY ./xarm_gazebo/ /overlay_ws/src/xarm_gazebo/
 
 # Setup entrypoint
 COPY ./docker/entrypoint.sh /
@@ -54,7 +59,7 @@ RUN rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
 FROM overlay AS dev 
 
 # Change USERNAME to the host USERNAME
-ARG USERNAME=diego
+ARG USERNAME=robotics
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
