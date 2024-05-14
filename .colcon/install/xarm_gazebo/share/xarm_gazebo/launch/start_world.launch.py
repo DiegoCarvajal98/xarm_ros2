@@ -1,1 +1,0 @@
-/overlay_ws/src/xarm_gazebo/launch/start_world.launch.py

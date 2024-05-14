@@ -277,12 +277,6 @@ SITE:STRING=personal
 //The directory containing a CMake configuration file for TinyXML2.
 TinyXML2_DIR:PATH=TinyXML2_DIR-NOTFOUND
 
-//No help, variable specified on the command line.
-UAGENT_BUILD_EXECUTABLE:UNINITIALIZED=OFF
-
-//No help, variable specified on the command line.
-UAGENT_P2P_PROFILE:UNINITIALIZED=OFF
-
 //Force use of system installed spdlog logger on superbuild.
 UAGENT_USE_SYSTEM_LOGGER:BOOL=OFF
 

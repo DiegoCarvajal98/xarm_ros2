@@ -1,2 +1,0 @@
-Invoking command in '/overlay_ws/build/flower_catcher_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /overlay_ws/src/xarm_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/overlay_ws/install/flower_catcher_gazebo
-Invoked command in '/overlay_ws/build/flower_catcher_gazebo' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /overlay_ws/src/xarm_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/overlay_ws/install/flower_catcher_gazebo
