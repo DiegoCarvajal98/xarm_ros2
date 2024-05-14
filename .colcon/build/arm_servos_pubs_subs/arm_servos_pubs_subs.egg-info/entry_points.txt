@@ -1,0 +1,4 @@
+[console_scripts]
+listener = arm_servos_pubs_subs.servo_pos_subscriber:main
+talker = arm_servos_pubs_subs.move_servos_publisher:main
+

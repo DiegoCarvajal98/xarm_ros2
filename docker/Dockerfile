@@ -48,6 +48,10 @@ COPY ./xarm_gazebo/ /overlay_ws/src/xarm_gazebo/
 COPY ./docker/entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
 
+COPY ./Hiwonder_xArm_ESP32 /overlay_ws/src/
+RUN rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
+    && colcon build --symlink-install
+
 ######################################
 # Development image for xArm control #
 ######################################
@@ -72,6 +76,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && mkdir -p /home/${USERNAME} \
     && chown -R ${USER_UID}:${USER_GID} /home/${USERNAME}
+
+RUN sudo usermod -aG dialout ${USERNAME}
 
 # Set the ownership of the overlay workspace to the new user
 RUN chown -R ${USER_UID}:${USER_GID} /overlay_ws/

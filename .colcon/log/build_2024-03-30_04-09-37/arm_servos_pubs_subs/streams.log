@@ -1,0 +1,22 @@
+[0.409s] Invoking command in '/overlay_ws/build/arm_servos_pubs_subs': PYTHONPATH=/overlay_ws/build/arm_servos_pubs_subs/prefix_override:/overlay_ws/install/arm_servos_pubs_subs/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /overlay_ws/build/arm_servos_pubs_subs/build --no-deps install_data
+[0.551s] running develop
+[0.551s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[0.551s]   warnings.warn(
+[0.552s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.552s]   warnings.warn(
+[0.629s] running egg_info
+[0.629s] writing arm_servos_pubs_subs.egg-info/PKG-INFO
+[0.629s] writing dependency_links to arm_servos_pubs_subs.egg-info/dependency_links.txt
+[0.629s] writing entry points to arm_servos_pubs_subs.egg-info/entry_points.txt
+[0.629s] writing requirements to arm_servos_pubs_subs.egg-info/requires.txt
+[0.629s] writing top-level names to arm_servos_pubs_subs.egg-info/top_level.txt
+[0.631s] reading manifest file 'arm_servos_pubs_subs.egg-info/SOURCES.txt'
+[0.632s] writing manifest file 'arm_servos_pubs_subs.egg-info/SOURCES.txt'
+[0.633s] running build_ext
+[0.633s] Creating /overlay_ws/install/arm_servos_pubs_subs/lib/python3.10/site-packages/arm-servos-pubs-subs.egg-link (link to .)
+[0.633s] Installing listener script to /overlay_ws/install/arm_servos_pubs_subs/lib/arm_servos_pubs_subs
+[0.634s] Installing talker script to /overlay_ws/install/arm_servos_pubs_subs/lib/arm_servos_pubs_subs
+[0.634s] 
+[0.634s] Installed /overlay_ws/build/arm_servos_pubs_subs
+[0.634s] running install_data
+[0.655s] Invoked command in '/overlay_ws/build/arm_servos_pubs_subs' returned '0': PYTHONPATH=/overlay_ws/build/arm_servos_pubs_subs/prefix_override:/overlay_ws/install/arm_servos_pubs_subs/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /overlay_ws/build/arm_servos_pubs_subs/build --no-deps install_data

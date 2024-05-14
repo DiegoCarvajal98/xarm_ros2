@@ -46,14 +46,16 @@ services:
         - USER_UID=${USER_UID:-1000}
         - USER_GID=${USER_UID:-1000}
         # Set correct USERNAME
-        - USERNAME=${USERNAME:-robotics}
+        - USERNAME=${USERNAME:-diego}
     volumes:
       # Mount colcon build artifacts for faster rebuilds
       - ./.colcon/build/:/overlay_ws/build/:rw
       - ./.colcon/install/:/overlay_ws/install/:rw
       - ./.colcon/log/:/overlay_ws/log/:rw
+      - ./ros2.repos:/overlay_ws/src/ros2.repos:rw
+      - ./uros/:/overlay_ws/src/uros/:rw
       - ./xarm_description/:/overlay_ws/src/xarm_description/:rw
       - ./xarm_moveit_config/:/overlay_ws/src/xarm_moveit_config/:rw
       - ./xarm_gazebo/:/overlay_ws/src/xarm_gazebo/:rw
-    user: ${USERNAME:-robotics}
+    user: ${USERNAME:-diego}
     command: sleep infinity
