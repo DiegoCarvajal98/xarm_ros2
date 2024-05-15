@@ -57,5 +57,6 @@ services:
       - ./xarm_description/:/overlay_ws/src/xarm_description/:rw
       - ./xarm_moveit_config/:/overlay_ws/src/xarm_moveit_config/:rw
       - ./xarm_gazebo/:/overlay_ws/src/xarm_gazebo/:rw
+      - ./xarm_support/:/overlay_ws/src/xarm_support/:rw
     user: ${USERNAME:-diego}
     command: sleep infinity

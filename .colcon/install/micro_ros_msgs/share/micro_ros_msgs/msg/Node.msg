@@ -1,3 +1,1 @@
-string<=256 node_namespace
-string<=256 node_name
-Entity[] entities
+/overlay_ws/src/uros/micro_ros_msgs/msg/Node.msg

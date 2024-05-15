@@ -25,7 +25,8 @@ RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
-    ros-${ROS_DISTRO}-moveit-* 
+    ros-${ROS_DISTRO}-moveit-* \
+    ros-${ROS_DISTRO}-topic-based-ros2-control
     # ros-${ROS_DISTRO}-gazebo-ros2-control \
     # ros-${ROS_DISTRO}-ros2-control
 
@@ -44,6 +45,7 @@ COPY ./xarm_description/ /overlay_ws/src/xarm_description/
 COPY ./xarm_moveit_config/ /overlay_ws/src/xarm_moveit_config/
 COPY ./xarm_gazebo/ /overlay_ws/src/xarm_gazebo/
 COPY ./Hiwonder_xArm_ESP32 /overlay_ws/src/
+COPY ./xarm_support/ /overlay_ws/src/xarm_support/
 
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
     && source /xarm_ws/install/setup.bash \

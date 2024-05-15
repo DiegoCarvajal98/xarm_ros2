@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="xarm">
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
-    <xacro:arg name="simulation_controllers" default="" />
+    <xacro:arg name="controllers" default="" />
+    <xacro:arg name="sim_robot" default="false"/>
 
     <!-- Import xarm urdf file -->
     <xacro:include filename="$(find xarm_description)/urdf/xarm_world.urdf.xacro" />
@@ -9,12 +10,9 @@
     <!-- Import control_xacro -->
     <xacro:include filename="xarm.ros2_control.xacro" />
 
-
-    <!-- <xacro:xarm_ros2_control name="GazeboSystem"
-        initial_positions_file="$(arg initial_positions_file)" /> -->
-
-    <xacro:xarm_ros2_control name="GazeboSystem"
+    <xacro:xarm_ros2_control name="System"
         initial_positions_file="$(arg initial_positions_file)"
-        simulation_controllers="$(arg simulation_controllers)" />
+        controllers="$(arg controllers)" 
+        sim_robot="$(arg sim_robot)"/>
 
 </robot>

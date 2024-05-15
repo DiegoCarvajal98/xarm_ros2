@@ -1,1 +1,1 @@
-/overlay_ws/install/micro_ros_msgs:/xarm_ws/install/micro_ros_setup:/opt/ros/humble
+/overlay_ws/build/micro_ros_agent/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/micro_ros_agent
