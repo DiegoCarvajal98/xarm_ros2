@@ -34,9 +34,10 @@ from launch.actions import (
     IncludeLaunchDescription,
     OpaqueFunction,
     RegisterEventHandler,
+    TimerAction,
 )
 from launch.conditions import IfCondition, UnlessCondition
-from launch.event_handlers import OnProcessExit
+from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -46,39 +47,11 @@ from launch_ros.substitutions import FindPackageShare
 def launch_setup(context, *args, **kwargs):
 
     # General arguments
-    runtime_config_package = LaunchConfiguration("runtime_config_package")
-    controllers_file = LaunchConfiguration("controllers_file")
     description_package = LaunchConfiguration("description_package")
-    description_file = LaunchConfiguration("description_file")
-    prefix = LaunchConfiguration("prefix")
-    start_joint_controller = LaunchConfiguration("start_joint_controller")
-    initial_joint_controller = LaunchConfiguration("initial_joint_controller")
     launch_rviz = LaunchConfiguration("launch_rviz")
-    moveit_config_package = LaunchConfiguration("moveit_config_package")
-    gazebo_package = LaunchConfiguration("gazebo_package")
-    gazebo_world_file = LaunchConfiguration("world_file")
-    catcher_distance = LaunchConfiguration("catcher_distance")
-    over_catcher = LaunchConfiguration("over_catcher")
-    base_pos = LaunchConfiguration("base_pos")
-    base_height = LaunchConfiguration("base_height")
-
-    initial_joint_controllers = PathJoinSubstitution(
-        [FindPackageShare(moveit_config_package), "config", controllers_file]
-    )
-
-    gazebo_world_file = PathJoinSubstitution(
-        [FindPackageShare(gazebo_package), "worlds", gazebo_world_file]
-    )
 
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
-    )
-
-    robot_state_publisher_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [FindPackageShare(moveit_config_package), "/launch", "/rsp.launch.py"]
-        ),
-        launch_arguments={"sim_gazebo": "true",}.items(),
     )
 
     rviz_node = Node(
@@ -86,14 +59,54 @@ def launch_setup(context, *args, **kwargs):
         executable="rviz2",
         name="rviz2",
         output="log",
-        arguments=["-d", rviz_config_file, {"use_sim_time": True}],
+        arguments=["-d", rviz_config_file, {"use_sim_time": False}],
         condition=IfCondition(launch_rviz),
     )
 
+    controller_params_file = PathJoinSubstitution(
+        [FindPackageShare(description_package), "config", "ros2_controllers.yaml"]
+    )
+
+    # Robot State Publisher
+    rsp = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([
+                    FindPackageShare(description_package),'/launch','/rsp.launch.py'
+                ]), launch_arguments={'use_sim_time': 'false',
+                                      "sim_gazebo": "false",}.items()
+    )
+
+    # Start controller_manager for ros2_control
+    robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
+
+    microros_agent = Node(
+        package="micro_ros_agent",
+        executable="micro_ros_agent",
+        arguments=["serial", "--dev", "/dev/ttyUSB0", "-v6"],
+    )
+
+    controller_manager = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[{'robot_description': robot_description},
+                    controller_params_file],
+        output='screen'
+    )
+
+    delayed_controller_manager = TimerAction(period=3.0, actions=[controller_manager])
+
+    # Start joint state broadcaster
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
+    # Delay joint broadcaster to start after controller manager
+    delayed_joint_broad_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[joint_state_broadcaster_spawner]
+        )
     )
 
     # Delay rviz start after `joint_state_broadcaster`
@@ -102,37 +115,6 @@ def launch_setup(context, *args, **kwargs):
             target_action=joint_state_broadcaster_spawner,
             on_exit=[rviz_node],
         )
-    )
-
-    # There may be other controllers of the joints, but this is the initially-started one
-    initial_joint_controller_spawner_started = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[initial_joint_controller, "-c", "/controller_manager"],
-        condition=IfCondition(start_joint_controller),
-    )
-    initial_joint_controller_spawner_stopped = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[initial_joint_controller, "-c", "/controller_manager", "--stopped"],
-        condition=UnlessCondition(start_joint_controller),
-    )
-
-    # Gazebo nodes
-    gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
-        ),
-        launch_arguments={"world": gazebo_world_file}.items(),
-    )
-
-    # Spawn robot
-    gazebo_spawn_robot = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
-        name="spawn_xarm",
-        arguments=["-entity", "xarm", "-topic", "robot_description"],
-        output="screen",
     )
 
     xarm_controller = Node(
@@ -155,11 +137,11 @@ def launch_setup(context, *args, **kwargs):
     )
 
     nodes_to_start = [
-        robot_state_publisher_node,
+        rsp,
+        microros_agent,
+        delayed_controller_manager,
+        delayed_joint_broad_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
-        gazebo,
-        gazebo_spawn_robot,
-        joint_state_broadcaster_spawner,
         xarm_controller,
         xgripper_controller,
         move_group,
@@ -171,14 +153,6 @@ def launch_setup(context, *args, **kwargs):
 def generate_launch_description():
     declared_arguments = []
     # General arguments
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "runtime_config_package",
-            default_value="xarm_gazebo",
-            description='Package with the controller\'s configuration in "config" folder. \
-        Usually the argument is not set, it enables use of a custom setup.',
-        )
-    )
     declared_arguments.append(
         DeclareLaunchArgument(
             "controllers_file",
@@ -218,36 +192,7 @@ def generate_launch_description():
         )
     )
     declared_arguments.append(
-        DeclareLaunchArgument(
-            "initial_joint_controller",
-            default_value="joint_trajectory_controller",
-            description="Robot controller to start.",
-        )
-    )
-    declared_arguments.append(
         DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?")
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "moveit_config_package",
-            default_value="xarm_moveit_config",
-            description='Package with the controller\'s configuration in "config" folder. \
-        Usually the argument is not set, it enables use of a custom setup.',
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "gazebo_package",
-            default_value="xarm_gazebo",
-            description="Description package with gazebo configuration",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "world_file",
-            default_value="xarm.world",
-            description="SDF description of the world",
-        )
     )
 
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])

@@ -36,7 +36,7 @@ def generate_move_group_launch(moveit_config):
         "publish_transforms_updates": should_publish,
         "monitor_dynamics": False,
         "use_sim_time": ParameterValue(
-            LaunchConfiguration("use_sim_time"), value_type=str
+            LaunchConfiguration("use_sim_time"), value_type=bool
         )
     }
     move_group_params = [

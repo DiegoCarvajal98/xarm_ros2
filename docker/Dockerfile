@@ -48,6 +48,7 @@ COPY ./Hiwonder_xArm_ESP32 /overlay_ws/src/
 COPY ./xarm_support/ /overlay_ws/src/xarm_support/
 
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && apt-get update -y \
     && source /xarm_ws/install/setup.bash \
     && rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y \
     && colcon build --symlink-install
