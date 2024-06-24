@@ -1,0 +1,3 @@
+[submodule "Hiwonder_xArm_ESP32"]
+	path = Hiwonder_xArm_ESP32
+	url = https://github.com/DiegoCarvajal98/Hiwonder_xArm_ESP32.git
