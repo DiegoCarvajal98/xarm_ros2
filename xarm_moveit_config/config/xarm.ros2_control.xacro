@@ -79,7 +79,6 @@
           <plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
           <param name="joint_commands_topic">/multi_servo_cmd_sub</param>
           <param name="joint_states_topic">/servo_pos_publisher</param>
-          <param name="sum_wrapped_joint_states">true</param>
         </hardware>
         <joint name="xarm_6_joint">
           <command_interface name="position" />

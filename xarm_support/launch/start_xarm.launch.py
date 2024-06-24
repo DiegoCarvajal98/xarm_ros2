@@ -66,10 +66,6 @@ def launch_setup(context, *args, **kwargs):
         [FindPackageShare(moveit_config_package), "config", controllers_file]
     )
 
-    gazebo_world_file = PathJoinSubstitution(
-        [FindPackageShare(gazebo_package), "worlds", gazebo_world_file]
-    )
-
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
     )
@@ -104,37 +100,6 @@ def launch_setup(context, *args, **kwargs):
         )
     )
 
-    # There may be other controllers of the joints, but this is the initially-started one
-    initial_joint_controller_spawner_started = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[initial_joint_controller, "-c", "/controller_manager"],
-        condition=IfCondition(start_joint_controller),
-    )
-    initial_joint_controller_spawner_stopped = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[initial_joint_controller, "-c", "/controller_manager", "--stopped"],
-        condition=UnlessCondition(start_joint_controller),
-    )
-
-    # Gazebo nodes
-    gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
-        ),
-        launch_arguments={"world": gazebo_world_file}.items(),
-    )
-
-    # Spawn robot
-    gazebo_spawn_robot = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
-        name="spawn_xarm",
-        arguments=["-entity", "xarm", "-topic", "robot_description"],
-        output="screen",
-    )
-
     xarm_controller = Node(
         package="controller_manager",
         executable="spawner",
@@ -157,8 +122,6 @@ def launch_setup(context, *args, **kwargs):
     nodes_to_start = [
         robot_state_publisher_node,
         delay_rviz_after_joint_state_broadcaster_spawner,
-        gazebo,
-        gazebo_spawn_robot,
         joint_state_broadcaster_spawner,
         xarm_controller,
         xgripper_controller,
