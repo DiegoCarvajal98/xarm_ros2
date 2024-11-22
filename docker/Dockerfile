@@ -4,7 +4,7 @@ ARG ROS_DISTRO=humble
 # Base image for xArm control #
 ###############################
 
-FROM osrf/ros:${ROS_DISTRO}-desktop as base 
+FROM osrf/ros:${ROS_DISTRO}-desktop AS base 
 ENV ROS_DISTRO=${ROS_DISTRO}
 SHELL [ "/bin/bash" , "-c" ]
 
@@ -44,7 +44,7 @@ WORKDIR /overlay_ws
 COPY ./xarm_description/ /overlay_ws/src/xarm_description/
 COPY ./xarm_moveit_config/ /overlay_ws/src/xarm_moveit_config/
 COPY ./xarm_gazebo/ /overlay_ws/src/xarm_gazebo/
-COPY ./Hiwonder_xArm_ESP32 /overlay_ws/src/
+COPY ./Hiwonder_xArm_ESP32/Hiwonder_xArm_ROS2/ /overlay_ws/src/Hiwonder_xArm_ROS2/
 COPY ./xarm_support/ /overlay_ws/src/xarm_support/
 
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
@@ -72,7 +72,18 @@ ARG USER_GID=${USER_UID}
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gdb \
     gdbserver \
-    nano
+    nano \
+    git \
+    cmake \
+    python3-pip \
+    python3-venv
+
+RUN curl -fsSL -o get-platformio.py https://raw.githubusercontent.com/platformio/platformio-core-installer/master/get-platformio.py \
+    && python3 get-platformio.py
+
+RUN ln -s ~/.platformio/penv/bin/platformio /usr/local/bin/platformio \
+    && ln -s ~/.platformio/penv/bin/pio /usr/local/bin/pio \
+    && ln -s ~/.platformio/penv/bin/piodebuggdb /usr/local/bin/piodebuggdb
 
 # Create new user and home directory
 RUN groupadd --gid $USER_GID $USERNAME \
