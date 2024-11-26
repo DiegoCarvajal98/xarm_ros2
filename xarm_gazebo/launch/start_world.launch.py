@@ -10,7 +10,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
     
-    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
     pkg_flower_catcher = get_package_share_directory('xarm_gazebo')
 
     description_pkg_name = "xarm_description"
@@ -30,7 +30,7 @@ def generate_launch_description():
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-        os.path.join(pkg_gazebo_ros, 'launch', 'gazebo.launch.py'),
+        os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py'),
         )
     )
 

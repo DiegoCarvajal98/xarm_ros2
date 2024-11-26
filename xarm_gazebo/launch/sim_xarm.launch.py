@@ -81,6 +81,12 @@ def launch_setup(context, *args, **kwargs):
         launch_arguments={"sim_gazebo": "true",}.items(),
     )
 
+    zenoh_router = Node(
+        package='rmw_zenoh_cpp',
+        executable='rmw_zenohd',
+        name='zenoh_router',
+    )
+
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
@@ -121,17 +127,17 @@ def launch_setup(context, *args, **kwargs):
     # Gazebo nodes
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
+            [FindPackageShare("ros_gz_sim"), "/launch", "/gz_sim.launch.py"]
         ),
-        launch_arguments={"world": gazebo_world_file}.items(),
+        launch_arguments={"world": gazebo_world_file, "on_exit_shutdown": "true"}.items(),
     )
 
     # Spawn robot
     gazebo_spawn_robot = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
+        package="ros_gz_sim",
+        executable="create",
         name="spawn_xarm",
-        arguments=["-entity", "xarm", "-topic", "robot_description"],
+        arguments=["-name", "xarm", "-topic", "robot_description"],
         output="screen",
     )
 
@@ -155,14 +161,15 @@ def launch_setup(context, *args, **kwargs):
     )
 
     nodes_to_start = [
+        zenoh_router,
         robot_state_publisher_node,
         delay_rviz_after_joint_state_broadcaster_spawner,
         gazebo,
         gazebo_spawn_robot,
         joint_state_broadcaster_spawner,
         xarm_controller,
-        xgripper_controller,
-        move_group,
+        # xgripper_controller,
+        # move_group,
     ]
 
     return nodes_to_start
@@ -245,7 +252,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "world_file",
-            default_value="xarm.world",
+            default_value="xarm_empty_world.sdf",
             description="SDF description of the world",
         )
     )
