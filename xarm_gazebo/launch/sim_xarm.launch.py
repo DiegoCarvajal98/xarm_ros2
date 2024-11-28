@@ -56,7 +56,7 @@ def launch_setup(context, *args, **kwargs):
     launch_rviz = LaunchConfiguration("launch_rviz")
     moveit_config_package = LaunchConfiguration("moveit_config_package")
     gazebo_package = LaunchConfiguration("gazebo_package")
-    gazebo_world_file = LaunchConfiguration("world_file")
+    world = LaunchConfiguration("world_file")
     catcher_distance = LaunchConfiguration("catcher_distance")
     over_catcher = LaunchConfiguration("over_catcher")
     base_pos = LaunchConfiguration("base_pos")
@@ -129,7 +129,7 @@ def launch_setup(context, *args, **kwargs):
         PythonLaunchDescriptionSource(
             [FindPackageShare("ros_gz_sim"), "/launch", "/gz_sim.launch.py"]
         ),
-        launch_arguments={"world": gazebo_world_file, "on_exit_shutdown": "true"}.items(),
+        launch_arguments={'gz_args': ['-r -v4 ', world], 'on_exit_shutdown': 'true'}.items()
     )
 
     # Spawn robot
@@ -137,7 +137,8 @@ def launch_setup(context, *args, **kwargs):
         package="ros_gz_sim",
         executable="create",
         name="spawn_xarm",
-        arguments=["-name", "xarm", "-topic", "robot_description"],
+        arguments=["-name", "xarm", 
+                   "-topic", "robot_description"],
         output="screen",
     )
 

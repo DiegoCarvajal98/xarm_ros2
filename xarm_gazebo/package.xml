@@ -13,10 +13,10 @@
   <depend>rclcpp</depend>
   <depend>controller_manager</depend>
   <depend>xarm_moveit_config</depend>
-  <depend>gazebo_ros2_control</depend>
+  <depend>gz_ros2_control</depend>
   <depend>ros2_control</depend>
   <depend>ros2_controllers</depend>
-  <depend>gazebo_ros</depend>
+  <depend>ros_gz</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
