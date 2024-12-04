@@ -28,6 +28,8 @@
 #
 # Author: Denis Stogl
 
+import os
+
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
@@ -67,7 +69,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     gazebo_world_file = PathJoinSubstitution(
-        [FindPackageShare(gazebo_package), "worlds", gazebo_world_file]
+        [FindPackageShare(gazebo_package), "worlds", world]
     )
 
     rviz_config_file = PathJoinSubstitution(
@@ -129,7 +131,7 @@ def launch_setup(context, *args, **kwargs):
         PythonLaunchDescriptionSource(
             [FindPackageShare("ros_gz_sim"), "/launch", "/gz_sim.launch.py"]
         ),
-        launch_arguments={'gz_args': ['-r -v4 ', world], 'on_exit_shutdown': 'true'}.items()
+        launch_arguments={'gz_args': ['-r -v4 ', gazebo_world_file], 'on_exit_shutdown': 'true'}.items()
     )
 
     # Spawn robot
