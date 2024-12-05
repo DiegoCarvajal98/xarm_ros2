@@ -20,8 +20,8 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_1s_description/meshes/base.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/base.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://xarm_1s_description/meshes/base.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="file://$(find xarm_description)/meshes/base.stl" scale="1.0 1.0 1.0" /> -->
       </geometry>
       <material name="blue" />
     </visual>
@@ -58,6 +58,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link6_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm5" type="revolute">

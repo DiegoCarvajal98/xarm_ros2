@@ -1,12 +1,24 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:macro name="xarm_1s_ros2_control" params="name initial_positions_file">
-        <xacro:property name="initial_positions" value="${load_yaml(initial_positions_file)['initial_positions']}"/>
+    <xacro:macro name="xarm_1s_ros2_control" params="name initial_positions_file is_simulation">
+        <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
+
+        <gazebo>
+          <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+            <parameters>$(find xarm1s_moveit_config)/config/ros2_controllers.yaml</parameters>
+          </plugin>
+        </gazebo>
 
         <ros2_control name="${name}" type="system">
             <hardware>
                 <!-- By default, set up controllers for simulation. This won't work on real hardware -->
-                <plugin>mock_components/GenericSystem</plugin>
+                <xacro:if value="${is_simulation}">
+                  <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+                </xacro:if>
+
+                <xacro:unless value="${is_simulation}">
+                  <plugin>mock_components/GenericSystem</plugin>
+                </xacro:unless>
             </hardware>
             <joint name="arm6">
                 <command_interface name="position"/>
@@ -48,6 +60,10 @@
                 <state_interface name="position">
                   <param name="initial_value">${initial_positions['arm1']}</param>
                 </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="arm1_left">
+                <state_interface name="position"/>
                 <state_interface name="velocity"/>
             </joint>
 
