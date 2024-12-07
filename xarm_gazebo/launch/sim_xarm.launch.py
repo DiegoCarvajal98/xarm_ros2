@@ -73,7 +73,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
+        [FindPackageShare(description_package), "config", "moveit.rviz"]
     )
 
     robot_state_publisher_node = IncludeLaunchDescription(
@@ -159,7 +159,7 @@ def launch_setup(context, *args, **kwargs):
     # move_group nodes
     move_group = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("xarm_moveit_config"), "/launch", "/move_group.launch.py"]
+            [FindPackageShare("xarm1s_moveit_config"), "/launch", "/move_group.launch.py"]
         ),
     )
 
@@ -171,8 +171,8 @@ def launch_setup(context, *args, **kwargs):
         gazebo_spawn_robot,
         joint_state_broadcaster_spawner,
         xarm_controller,
-        # xgripper_controller,
-        # move_group,
+        xgripper_controller,
+        move_group,
     ]
 
     return nodes_to_start

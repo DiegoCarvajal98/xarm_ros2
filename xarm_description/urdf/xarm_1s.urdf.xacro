@@ -20,8 +20,8 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
       <geometry>
-        <mesh filename="package://xarm_1s_description/meshes/base.stl" scale="1.0 1.0 1.0" />
-        <!-- <mesh filename="file://$(find xarm_description)/meshes/base.stl" scale="1.0 1.0 1.0" /> -->
+        <!-- <mesh filename="package://xarm_1s_description/meshes/base.stl" scale="1.0 1.0 1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/base.stl" scale="1.0 1.0 1.0" />
       </geometry>
       <material name="blue" />
     </visual>
@@ -32,6 +32,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/base_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm6" type="revolute">
@@ -59,7 +63,7 @@
       </geometry>
     </collision>
     <inertial>
-      <mass value="1"/>
+      <mass value="0.1"/>
       <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
@@ -88,6 +92,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link5_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm4" type="revolute">
@@ -114,6 +122,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link4_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm3" type="revolute">
@@ -140,6 +152,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link3_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm2" type="revolute">
@@ -166,6 +182,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link2_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm1" type="revolute">
@@ -192,6 +212,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link1_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm1_left" type="continuous">
@@ -218,6 +242,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link1_left_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm0" type="continuous">
@@ -244,6 +272,10 @@
         <mesh filename="file://$(find xarm_description)/meshes/link0_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <joint name="arm0_left" type="continuous">
@@ -270,18 +302,22 @@
         <mesh filename="file://$(find xarm_description)/meshes/link0_left_collision.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
   </link>
 
   <!-- TO-DO: move out to separate file -->
-  <joint name="depth_joint" type="fixed">
+  <!-- <joint name="depth_joint" type="fixed">
     <parent link="link2"/>
     <child link="depth"/>
     <origin rpy="-1.5708 0 -1.5708" xyz="0.044 -0.0115 0.045"/>
   </joint>
-  <link name="depth" />
+  <link name="depth" /> -->
 
   <!-- TO-DO: move out to separate file -->
-  <ros2_control name="xarm_1s" type="system">
+  <!-- <ros2_control name="xarm_1s" type="system">
     <hardware>
       <plugin>ros2_control_xarm_1s/XArm1SSystemHardware</plugin>
     </hardware>
@@ -333,5 +369,5 @@
       </command_interface>
       <state_interface name="position"/>
     </joint>
-  </ros2_control>
+  </ros2_control> -->
 </robot>
