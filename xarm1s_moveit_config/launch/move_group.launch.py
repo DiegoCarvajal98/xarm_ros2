@@ -56,7 +56,7 @@ def generate_move_group_launch(moveit_config):
 
 def generate_launch_description():
     moveit_config = (MoveItConfigsBuilder("xarm_1s", package_name="xarm1s_moveit_config")
-    .robot_description_semantic(Path("config") / "xarm_1s.urdf.xacro", {"is_simulation": "true"})
+    .robot_description_semantic(Path("config") / "xarm_1s.srdf")
     .planning_pipelines(
         pipelines=["ompl"],
         default_planning_pipeline="ompl")
