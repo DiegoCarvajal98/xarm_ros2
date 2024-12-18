@@ -1,4 +1,1 @@
-# generated from rosidl_cmake/cmake/rosidl_cmake-extras.cmake.in
-
-set(micro_ros_msgs_IDL_FILES "msg/Graph.idl;msg/Node.idl;msg/Entity.idl")
-set(micro_ros_msgs_INTERFACE_FILES "msg/Graph.msg;msg/Node.msg;msg/Entity.msg")
+/overlay_ws/build/micro_ros_msgs/rosidl_cmake/rosidl_cmake-extras.cmake

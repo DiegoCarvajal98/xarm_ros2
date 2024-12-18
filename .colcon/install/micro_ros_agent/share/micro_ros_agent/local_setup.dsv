@@ -1,2 +1,1 @@
-source;share/micro_ros_agent/environment/ament_prefix_path.sh
-source;share/micro_ros_agent/environment/path.sh
+/overlay_ws/build/micro_ros_agent/ament_cmake_environment_hooks/local_setup.dsv

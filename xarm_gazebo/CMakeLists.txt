@@ -30,9 +30,9 @@ endif()
 
 install(
   DIRECTORY
-    config
+    # config
     launch
-    models
+    # models
     worlds
   DESTINATION
     share/${PROJECT_NAME}/

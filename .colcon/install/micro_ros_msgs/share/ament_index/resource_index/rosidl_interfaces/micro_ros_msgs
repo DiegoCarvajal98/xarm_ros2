@@ -1,6 +1,1 @@
-msg/Entity.idl
-msg/Entity.msg
-msg/Graph.idl
-msg/Graph.msg
-msg/Node.idl
-msg/Node.msg
+/overlay_ws/build/micro_ros_msgs/ament_cmake_index/share/ament_index/resource_index/rosidl_interfaces/micro_ros_msgs

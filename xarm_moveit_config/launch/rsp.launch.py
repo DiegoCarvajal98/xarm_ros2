@@ -31,10 +31,10 @@ def generate_rsp_launch(moveit_config):
                 [FindPackageShare(moveit_config_package), "config", description_file]
             ),
             " ",
-            "sim_gazebo:=",
+            "sim_robot:=",
             LaunchConfiguration("sim_gazebo"),
             " ",
-            "simulation_controllers:=",
+            "controllers:=",
             initial_joint_controllers,
         ]
     )

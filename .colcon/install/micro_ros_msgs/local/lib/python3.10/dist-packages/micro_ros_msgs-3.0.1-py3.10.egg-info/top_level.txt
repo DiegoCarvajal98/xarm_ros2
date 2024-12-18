@@ -1,1 +1,1 @@
-micro_ros_msgs
+/overlay_ws/build/micro_ros_msgs/ament_cmake_python/micro_ros_msgs/micro_ros_msgs.egg-info/top_level.txt

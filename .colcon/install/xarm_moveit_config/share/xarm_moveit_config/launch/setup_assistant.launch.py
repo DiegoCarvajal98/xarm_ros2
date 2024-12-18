@@ -1,1 +1,0 @@
-/overlay_ws/src/xarm_moveit_config/launch/setup_assistant.launch.py
