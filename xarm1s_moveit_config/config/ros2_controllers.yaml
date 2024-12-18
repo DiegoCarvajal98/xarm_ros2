@@ -1,0 +1,40 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    xarm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    xgripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+xarm_controller:
+  ros__parameters:
+    joints:
+      - arm6
+      - arm5
+      - arm4
+      - arm3
+      - arm2
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
+xgripper_controller:
+  ros__parameters:
+    joints:
+      - arm1
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true

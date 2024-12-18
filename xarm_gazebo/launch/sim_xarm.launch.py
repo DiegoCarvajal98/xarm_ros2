@@ -28,6 +28,8 @@
 #
 # Author: Denis Stogl
 
+import os
+
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
@@ -56,7 +58,7 @@ def launch_setup(context, *args, **kwargs):
     launch_rviz = LaunchConfiguration("launch_rviz")
     moveit_config_package = LaunchConfiguration("moveit_config_package")
     gazebo_package = LaunchConfiguration("gazebo_package")
-    gazebo_world_file = LaunchConfiguration("world_file")
+    world = LaunchConfiguration("world_file")
     catcher_distance = LaunchConfiguration("catcher_distance")
     over_catcher = LaunchConfiguration("over_catcher")
     base_pos = LaunchConfiguration("base_pos")
@@ -67,18 +69,24 @@ def launch_setup(context, *args, **kwargs):
     )
 
     gazebo_world_file = PathJoinSubstitution(
-        [FindPackageShare(gazebo_package), "worlds", gazebo_world_file]
+        [FindPackageShare(gazebo_package), "worlds", world]
     )
 
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
+        [FindPackageShare(description_package), "config", "moveit.rviz"]
     )
 
     robot_state_publisher_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [FindPackageShare(moveit_config_package), "/launch", "/rsp.launch.py"]
         ),
-        launch_arguments={"sim_gazebo": "true",}.items(),
+        launch_arguments={"is_simulation": "true",}.items(),
+    )
+
+    zenoh_router = Node(
+        package='rmw_zenoh_cpp',
+        executable='rmw_zenohd',
+        name='zenoh_router',
     )
 
     rviz_node = Node(
@@ -121,17 +129,18 @@ def launch_setup(context, *args, **kwargs):
     # Gazebo nodes
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
+            [FindPackageShare("ros_gz_sim"), "/launch", "/gz_sim.launch.py"]
         ),
-        launch_arguments={"world": gazebo_world_file}.items(),
+        launch_arguments={'gz_args': ['-r -v4 ', gazebo_world_file], 'on_exit_shutdown': 'true'}.items()
     )
 
     # Spawn robot
     gazebo_spawn_robot = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
+        package="ros_gz_sim",
+        executable="create",
         name="spawn_xarm",
-        arguments=["-entity", "xarm", "-topic", "robot_description"],
+        arguments=["-name", "xarm", 
+                   "-topic", "robot_description"],
         output="screen",
     )
 
@@ -150,11 +159,12 @@ def launch_setup(context, *args, **kwargs):
     # move_group nodes
     move_group = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("xarm_moveit_config"), "/launch", "/move_group.launch.py"]
+            [FindPackageShare("xarm1s_moveit_config"), "/launch", "/move_group.launch.py"]
         ),
     )
 
     nodes_to_start = [
+        zenoh_router,
         robot_state_publisher_node,
         delay_rviz_after_joint_state_broadcaster_spawner,
         gazebo,
@@ -189,7 +199,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value="xarm_moveit_config",
+            default_value="xarm1s_moveit_config",
             description="Description package with robot URDF/XACRO files. Usually the argument \
         is not set, it enables use of a custom description.",
         )
@@ -197,7 +207,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="xarm.urdf.xacro",
+            default_value="xarm1s.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )
@@ -230,7 +240,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_package",
-            default_value="xarm_moveit_config",
+            default_value="xarm1s_moveit_config",
             description='Package with the controller\'s configuration in "config" folder. \
         Usually the argument is not set, it enables use of a custom setup.',
         )
@@ -245,7 +255,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "world_file",
-            default_value="xarm.world",
+            default_value="xarm_empty_world.sdf",
             description="SDF description of the world",
         )
     )
