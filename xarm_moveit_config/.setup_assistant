@@ -5,6 +5,21 @@ moveit_setup_assistant_config:
   srdf:
     relative_path: config/xarm.srdf
   package_settings:
-    author_name: Diego Carvajals
+    author_name: Diego Carvajal
     author_email: diego98cs@gmail.com
-    generated_timestamp: 1733586675
+    generated_timestamp: 1734641500
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

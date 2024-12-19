@@ -10,6 +10,17 @@
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
     <group name="xarm">
+        <link name="base_link"/>
+        <link name="link6"/>
+        <link name="link5"/>
+        <link name="link4"/>
+        <link name="link3"/>
+        <link name="link2"/>
+        <joint name="arm6"/>
+        <joint name="arm5"/>
+        <joint name="arm4"/>
+        <joint name="arm3"/>
+        <joint name="arm2"/>
         <chain base_link="base_link" tip_link="link2"/>
     </group>
     <group name="xgripper">
@@ -28,6 +39,8 @@
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="xgripper" parent_link="link2" group="xgripper" parent_group="xarm"/>
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="fixed_frame" type="fixed" parent_frame="world" child_link="base_link"/>
     <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
     <passive_joint name="arm0"/>
     <passive_joint name="arm1_left"/>
