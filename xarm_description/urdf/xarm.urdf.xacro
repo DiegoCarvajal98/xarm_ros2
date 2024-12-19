@@ -251,9 +251,9 @@
   <joint name="arm0" type="continuous">
     <parent link="link1"/>
     <child link="link0"/>
-    <origin xyz="-0.0023 0.0 0.0305" rpy="0.0 0.0 0.0" />
+    <origin xyz="-0.0023 0.0 0.0305" rpy="-0.3 0.0 0.0" />
     <axis xyz="1 0 0"/>
-    <mimic joint="arm1" multiplier="-1.01" offset="-0.3" />
+    <mimic joint="arm1" multiplier="-1.01" offset="0.0" />
   </joint>
 
   <link name="link0">
@@ -281,9 +281,9 @@
   <joint name="arm0_left" type="continuous">
     <parent link="link1_left"/>
     <child link="link0_left"/>
-    <origin xyz="-0.0023 0.0 0.0305" rpy="0.0 0.0 0.0" />
+    <origin xyz="-0.0023 0.0 0.0305" rpy="0.3 0.0 0.0" />
     <axis xyz="1 0 0"/>
-    <mimic joint="arm1" multiplier="1.01" offset="0.3" />
+    <mimic joint="arm1" multiplier="1.01" offset="0.0" />
   </joint>
 
   <link name="link0_left">
