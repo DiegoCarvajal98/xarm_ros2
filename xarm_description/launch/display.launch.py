@@ -7,7 +7,7 @@ import os
 
 def generate_launch_description():
     pkg_share = FindPackageShare(package='xarm_description').find('xarm_description')
-    default_model_path = os.path.join(pkg_share, 'urdf', 'xarm_1s.urdf.xacro')
+    default_model_path = os.path.join(pkg_share, 'urdf', 'xarm.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/view_robot.rviz')
     # world_path=os.path.join(pkg_share, 'world/my_world.sdf')
 

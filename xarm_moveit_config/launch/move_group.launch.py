@@ -1,3 +1,4 @@
+from pathlib import Path
 from moveit_configs_utils import MoveItConfigsBuilder
 from moveit_configs_utils.launches import *
 
@@ -17,7 +18,6 @@ def generate_move_group_launch(moveit_config):
     # do not copy dynamics information from /joint_states to internal robot monitoring
     # default to false, because almost nothing in move_group relies on this information
     ld.add_action(DeclareBooleanLaunchArg("monitor_dynamics", default_value=False))
-    ld.add_action(DeclareBooleanLaunchArg("use_sim_time", default_value=False))
     should_publish = LaunchConfiguration("publish_monitored_planning_scene")
     move_group_configuration = {
         "publish_robot_description_semantic": True,
@@ -35,9 +35,7 @@ def generate_move_group_launch(moveit_config):
         "publish_state_updates": should_publish,
         "publish_transforms_updates": should_publish,
         "monitor_dynamics": False,
-        "use_sim_time": ParameterValue(
-            LaunchConfiguration("use_sim_time"), value_type=bool
-        )
+        "use_sim_time": True
     }
     move_group_params = [
         moveit_config.to_dict(),
@@ -57,5 +55,11 @@ def generate_move_group_launch(moveit_config):
     return ld
 
 def generate_launch_description():
-    moveit_config = MoveItConfigsBuilder("xarm", package_name="xarm_moveit_config").to_moveit_configs()
+    moveit_config = (MoveItConfigsBuilder("xarm", package_name="xarm_moveit_config")
+    .robot_description_semantic(Path("config") / "xarm.srdf")
+    .planning_pipelines(
+        pipelines=["ompl"],
+        default_planning_pipeline="ompl")
+    .to_moveit_configs()
+    )
     return generate_move_group_launch(moveit_config)

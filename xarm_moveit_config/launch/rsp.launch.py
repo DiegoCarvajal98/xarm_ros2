@@ -2,13 +2,14 @@ from moveit_configs_utils import MoveItConfigsBuilder
 from launch.substitutions import PathJoinSubstitution, FindExecutable, Command
 from launch_ros.substitutions import FindPackageShare
 from moveit_configs_utils.launches import *
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_rsp_launch(moveit_config):
     """Launch file for robot state publisher (rsp)"""
 
     ld = LaunchDescription()
     ld.add_action(DeclareLaunchArgument("publish_frequency", default_value="15.0"))
-    ld.add_action(DeclareBooleanLaunchArg("sim_gazebo", default_value=False))
+    ld.add_action(DeclareBooleanLaunchArg("is_simulation", default_value=False))
     ld.add_action(DeclareLaunchArgument(
             "controllers_file",
             default_value="ros2_controllers.yaml",
@@ -31,14 +32,14 @@ def generate_rsp_launch(moveit_config):
                 [FindPackageShare(moveit_config_package), "config", description_file]
             ),
             " ",
-            "sim_robot:=",
-            LaunchConfiguration("sim_gazebo"),
+            "is_simulation:=",
+            LaunchConfiguration("is_simulation"),
             " ",
-            "controllers:=",
+            "simulation_controllers:=",
             initial_joint_controllers,
         ]
     )
-    robot_description = {"robot_description": robot_description_content}
+    robot_description = {"robot_description": ParameterValue(robot_description_content, value_type=str)}
 
     # Given the published joint states, publish tf for the robot links and the robot description
     rsp_node = Node(
@@ -50,7 +51,7 @@ def generate_rsp_launch(moveit_config):
             robot_description,
             {
                 "publish_frequency": LaunchConfiguration("publish_frequency"),
-                "use_sim_time": LaunchConfiguration("sim_gazebo"),
+                "use_sim_time": LaunchConfiguration("is_simulation"),
             },
         ],
     )

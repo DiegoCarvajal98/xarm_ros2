@@ -159,7 +159,7 @@ def launch_setup(context, *args, **kwargs):
     # move_group nodes
     move_group = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("xarm1s_moveit_config"), "/launch", "/move_group.launch.py"]
+            [FindPackageShare("xarm_moveit_config"), "/launch", "/move_group.launch.py"]
         ),
     )
 
@@ -199,7 +199,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value="xarm1s_moveit_config",
+            default_value="xarm_moveit_config",
             description="Description package with robot URDF/XACRO files. Usually the argument \
         is not set, it enables use of a custom description.",
         )
@@ -207,7 +207,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="xarm1s.urdf.xacro",
+            default_value="xarm.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )
@@ -240,7 +240,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_package",
-            default_value="xarm1s_moveit_config",
+            default_value="xarm_moveit_config",
             description='Package with the controller\'s configuration in "config" folder. \
         Usually the argument is not set, it enables use of a custom setup.',
         )

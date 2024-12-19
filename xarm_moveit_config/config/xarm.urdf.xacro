@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="xarm">
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
-    <xacro:arg name="controllers" default="" />
-    <xacro:arg name="sim_robot" default="false"/>
+    <xacro:arg name="is_simulation" default="false" />
 
     <!-- Import xarm urdf file -->
-    <xacro:include filename="$(find xarm_description)/urdf/xarm_world.urdf.xacro" />
+    <xacro:include filename="$(find xarm_description)/urdf/xarm.urdf.xacro" />
 
     <!-- Import control_xacro -->
     <xacro:include filename="xarm.ros2_control.xacro" />
 
-    <xacro:xarm_ros2_control name="System"
-        initial_positions_file="$(arg initial_positions_file)"
-        controllers="$(arg controllers)" 
-        sim_robot="$(arg sim_robot)"/>
+    <xacro:if value="$(arg is_simulation)">
+        <xacro:xarm_ros2_control name="GazeboSimSystem" initial_positions_file="$(arg initial_positions_file)" is_simulation="$(arg is_simulation)"/>
+    </xacro:if>
+
+    <xacro:unless value="$(arg is_simulation)">
+        <xacro:xarm_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)" is_simulation="$(arg is_simulation)"/>
+    </xacro:unless>
 
 </robot>

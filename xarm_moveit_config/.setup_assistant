@@ -1,25 +1,10 @@
 moveit_setup_assistant_config:
   urdf:
     package: xarm_description
-    relative_path: urdf/xarm_world.urdf.xacro
+    relative_path: urdf/xarm.urdf.xacro
   srdf:
     relative_path: config/xarm.srdf
   package_settings:
-    author_name: Diego Carvajal
+    author_name: Diego Carvajals
     author_email: diego98cs@gmail.com
-    generated_timestamp: 1714686977
-  control_xacro:
-    command:
-      - position
-    state:
-      - position
-      - velocity
-  modified_urdf:
-    xacros:
-      - control_xacro
-  control_xacro:
-    command:
-      - position
-    state:
-      - position
-      - velocity
+    generated_timestamp: 1733586675
