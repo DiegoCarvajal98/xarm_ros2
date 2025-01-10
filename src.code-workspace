@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "xarm_microros",
+			"path": "xarm_microros"
+		}
+	],
+	"settings": {}
+}

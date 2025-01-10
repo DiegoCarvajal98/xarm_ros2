@@ -48,21 +48,14 @@ from launch_ros.substitutions import FindPackageShare
 def launch_setup(context, *args, **kwargs):
 
     # General arguments
-    runtime_config_package = LaunchConfiguration("runtime_config_package")
     controllers_file = LaunchConfiguration("controllers_file")
     description_package = LaunchConfiguration("description_package")
-    description_file = LaunchConfiguration("description_file")
-    prefix = LaunchConfiguration("prefix")
     start_joint_controller = LaunchConfiguration("start_joint_controller")
     initial_joint_controller = LaunchConfiguration("initial_joint_controller")
     launch_rviz = LaunchConfiguration("launch_rviz")
     moveit_config_package = LaunchConfiguration("moveit_config_package")
     gazebo_package = LaunchConfiguration("gazebo_package")
     world = LaunchConfiguration("world_file")
-    catcher_distance = LaunchConfiguration("catcher_distance")
-    over_catcher = LaunchConfiguration("over_catcher")
-    base_pos = LaunchConfiguration("base_pos")
-    base_height = LaunchConfiguration("base_height")
 
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(moveit_config_package), "config", controllers_file]
