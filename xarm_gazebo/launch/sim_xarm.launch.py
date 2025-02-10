@@ -133,7 +133,14 @@ def launch_setup(context, *args, **kwargs):
         executable="create",
         name="spawn_xarm",
         arguments=["-name", "xarm", 
-                   "-topic", "robot_description"],
+                   "-topic", "robot_description",
+                   "-x", "0.8",
+                   "-y", "-0.4",
+                   "-z", "0.55",
+                   "-roll", "0.0",
+                   "-pitch", "0.0",
+                   "-q", "0", "0", "0.707", "0,707"
+                   ],
         output="screen",
     )
 
@@ -248,7 +255,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "world_file",
-            default_value="xarm_empty_world.sdf",
+            default_value="xarm_desk_world.sdf",
             description="SDF description of the world",
         )
     )
