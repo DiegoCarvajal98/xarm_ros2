@@ -1,19 +1,19 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="xarm">
   <material name="black">
-    <color rgba="0.2 0.2 0.2 1"/>
+    <color rgba="0.2 0.2 0.2 1" />
   </material>
   <material name="blue">
-    <color rgba="0.3 0.5 0.9 1.0"/>
+    <color rgba="0.3 0.5 0.9 1.0" />
   </material>
 
-  <link name="world"/>
+  <link name="world" />
 
   <joint name="world_joint" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    <parent link="world" />
+    <child link="base_link" />
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
   </joint>
 
   <link name="base_link">
@@ -28,22 +28,24 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/base_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/base_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/base_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/base_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm6" type="revolute">
     <limit effort="1000" lower="-2.1" upper="2.1" velocity="1.0" />
-    <parent link="base_link"/>
-    <child link="link6"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.043"/>
-    <axis xyz="0 0 1"/>
+    <parent link="base_link" />
+    <child link="link6" />
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.043" />
+    <axis xyz="0 0 1" />
   </joint>
 
   <link name="link6">
@@ -58,22 +60,24 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link6_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link6_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link6_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link6_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm5" type="revolute">
     <limit effort="1000" lower="-1.5708" upper="1.5708" velocity="1.0" />
-    <parent link="link6"/>
-    <child link="link5"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.002 0.0 0.032"/>
-    <axis xyz="0 1 0"/>
+    <parent link="link6" />
+    <child link="link5" />
+    <origin rpy="0.0 0.0 0.0" xyz="0.002 0.0 0.032" />
+    <axis xyz="0 -1 0" />
   </joint>
 
   <link name="link5">
@@ -88,22 +92,24 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link5_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link5_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link5_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link5_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm4" type="revolute">
     <limit effort="1000" lower="-2.09" upper="2.09" velocity="1.0" />
-    <parent link="link5"/>
-    <child link="link4"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.09775"/>
-    <axis xyz="0 1 0"/>
+    <parent link="link5" />
+    <child link="link4" />
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.09775" />
+    <axis xyz="0 1 0" />
   </joint>
 
   <link name="link4">
@@ -118,22 +124,24 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link4_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link4_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link4_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link4_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm3" type="revolute">
     <limit effort="1000" lower="-1.85" upper="2.07" velocity="1.0" />
-    <parent link="link4"/>
-    <child link="link3"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.099"/>
-    <axis xyz="0 1 0"/>
+    <parent link="link4" />
+    <child link="link3" />
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.099" />
+    <axis xyz="0 -1 0" />
   </joint>
 
   <link name="link3">
@@ -148,22 +156,24 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link3_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link3_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link3_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link3_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm2" type="revolute">
     <limit effort="1000" lower="-1.95" upper="1.95" velocity="1.0" />
-    <parent link="link3"/>
-    <child link="link2"/>
-    <origin rpy="0.0 0.0 0.0" xyz="-0.00125 0.0 0.050"/>
-    <axis xyz="0 0 1"/>
+    <parent link="link3" />
+    <child link="link2" />
+    <origin rpy="0.0 0.0 0.0" xyz="-0.00125 0.0 0.050" />
+    <axis xyz="0 0 1" />
   </joint>
 
   <link name="link2">
@@ -178,22 +188,24 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link2_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link2_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link2_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link2_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm1" type="revolute">
     <limit effort="1000" lower="0" upper="1.8326" velocity="1.0" />
-    <parent link="link2"/>
-    <child link="link1"/>
+    <parent link="link2" />
+    <child link="link1" />
     <origin xyz="-0.0015 -0.014 0.0315" rpy="0.0 0.0 0.0" />
-    <axis xyz="1 0 0"/>
+    <axis xyz="1 0 0" />
   </joint>
 
   <link name="link1">
@@ -208,21 +220,23 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link1_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link1_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link1_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link1_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm1_left" type="continuous">
-    <parent link="link2"/>
-    <child link="link1_left"/>
+    <parent link="link2" />
+    <child link="link1_left" />
     <origin xyz="-0.0015 0.014 0.0315" rpy="0.0 0.0 0.0" />
-    <axis xyz="1 0 0"/>
+    <axis xyz="1 0 0" />
     <mimic joint="arm1" multiplier="-1" offset="0" />
   </joint>
 
@@ -230,7 +244,8 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link1_left.stl" scale="1.0 1.0 1.0" /> -->
+        <!-- <mesh filename="package://xarm_description/meshes/link1_left.stl" scale="1.0 1.0 1.0"
+        /> -->
         <mesh filename="file://$(find xarm_description)/meshes/link1_left.stl" scale="1.0 1.0 1.0" />
       </geometry>
       <material name="black" />
@@ -238,21 +253,23 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link1_left_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link1_left_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link1_left_collision.stl" scale="1.0
+        1.0 1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link1_left_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm0" type="continuous">
-    <parent link="link1"/>
-    <child link="link0"/>
+    <parent link="link1" />
+    <child link="link0" />
     <origin xyz="-0.0023 0.0 0.0305" rpy="-0.3 0.0 0.0" />
-    <axis xyz="1 0 0"/>
+    <axis xyz="1 0 0" />
     <mimic joint="arm1" multiplier="-1.01" offset="0.0" />
   </joint>
 
@@ -268,21 +285,23 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link0_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link0_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link0_collision.stl" scale="1.0 1.0
+        1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link0_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
   <joint name="arm0_left" type="continuous">
-    <parent link="link1_left"/>
-    <child link="link0_left"/>
+    <parent link="link1_left" />
+    <child link="link0_left" />
     <origin xyz="-0.0023 0.0 0.0305" rpy="0.3 0.0 0.0" />
-    <axis xyz="1 0 0"/>
+    <axis xyz="1 0 0" />
     <mimic joint="arm1" multiplier="1.01" offset="0.0" />
   </joint>
 
@@ -290,7 +309,8 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link0_left.stl" scale="1.0 1.0 1.0" /> -->
+        <!-- <mesh filename="package://xarm_description/meshes/link0_left.stl" scale="1.0 1.0 1.0"
+        /> -->
         <mesh filename="file://$(find xarm_description)/meshes/link0_left.stl" scale="1.0 1.0 1.0" />
       </geometry>
       <material name="black" />
@@ -298,13 +318,15 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry>
-        <!-- <mesh filename="package://xarm_description/meshes/link0_left_collision.stl" scale="1.0 1.0 1.0" /> -->
-        <mesh filename="file://$(find xarm_description)/meshes/link0_left_collision.stl" scale="1.0 1.0 1.0" />
+        <!-- <mesh filename="package://xarm_description/meshes/link0_left_collision.stl" scale="1.0
+        1.0 1.0" /> -->
+        <mesh filename="file://$(find xarm_description)/meshes/link0_left_collision.stl"
+          scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <mass value="0.1" />
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2" />
     </inertial>
   </link>
 
