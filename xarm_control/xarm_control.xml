@@ -1,0 +1,9 @@
+<library path="xarm_control">
+  <class name="xarm_control/XArmSystemHardware"
+         type="xarm_control::XArmSystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Robot hardware plugin for xArm 5 dof robot.
+    </description>
+  </class>
+</library>
