@@ -1,24 +1,22 @@
 {
-  "configurations": [
-    {
-      "browse": {
-        "databaseFilename": "${default}",
-        "limitSymbolsToIncludedHeaders": false
-      },
-      "includePath": [
-        "/home/diego/amr_ws/install/web_video_server/include/**",
-        "/home/diego/amr_ws/install/roboteq_diff_cont/include/**",
-        "/opt/ros/humble/include/**",
-        "/home/diego/xarm_ws/src/uros/micro-ROS-Agent/micro_ros_agent/include/**",
-        "/opt/ros/humble/include/**",
-        "/usr/include/**"
-      ],
-      "name": "ROS",
-      "intelliSenseMode": "gcc-x64",
-      "compilerPath": "/usr/bin/gcc",
-      "cStandard": "gnu11",
-      "cppStandard": "c++14"
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${default}",
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "/home/diego/xarm_ws/src**",
+                "/opt/ros/jazzy/include/**",
+                "/usr/include/**",
+                "${workspaceFolder}/xarm_control/hardware/include"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
 }

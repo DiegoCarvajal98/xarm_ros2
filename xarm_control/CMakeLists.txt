@@ -19,13 +19,6 @@ set(REF_GEN_INCLUDE_DEPENDS
   rclcpp
   trajectory_msgs
 )
-set(CONTROLLER_INCLUDE_DEPENDS
-  pluginlib
-  rcpputils
-  controller_interface
-  realtime_tools
-  trajectory_msgs
-)
 
 # Specify the required version of ros2_control
 find_package(controller_manager 4.0.0)
@@ -44,9 +37,6 @@ endforeach()
 foreach(Dependency IN ITEMS ${REF_GEN_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
 endforeach()
-foreach(Dependency IN ITEMS ${CONTROLLER_INCLUDE_DEPENDS})
-  find_package(${Dependency} REQUIRED)
-endforeach()
 
 ## COMPILE
 
@@ -59,14 +49,14 @@ add_library(
 target_compile_features(xarm_control PUBLIC cxx_std_17)
 target_include_directories(xarm_control PUBLIC
 $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/hardware/include>
-$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/controller/include>
 $<INSTALL_INTERFACE:include/xarm_control>
 )
 ament_target_dependencies(
   xarm_control PUBLIC
   ${HW_IF_INCLUDE_DEPENDS}
-  ${CONTROLLER_INCLUDE_DEPENDS}
 )
+
+target_link_libraries(xarm_control PUBLIC serial)
 
 # Export hardware plugins
 pluginlib_export_plugin_description_file(hardware_interface xarm_control.xml)
@@ -94,5 +84,5 @@ endif()
 
 ## EXPORTS
 ament_export_targets(export_xarm_control HAS_LIBRARY_TARGET)
-ament_export_dependencies(${HW_IF_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS})
+ament_export_dependencies(${HW_IF_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS})
 ament_package()

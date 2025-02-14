@@ -31,65 +31,69 @@ char argv3[16];
 char argv4[16];
 char argv5[16];
 char argv6[16];
+char argv7[16];
 
 // The arguments converted to integers
-long argi[6];
+long argi[7];
 
-int pos_cmd[6]; // Servo pos commands
+int pos_cmd[7]; // Servo pos commands
 
 double pos[6] = {0, 0, 0, 0, 0, 0}; // servo positions
 
 void runCommand()
 {
-  argi[0] = atoi(argv1);
-  argi[1] = atoi(argv2);
-  argi[2] = atoi(argv3);
-  argi[3] = atoi(argv4);
-  argi[4] = atoi(argv5);
-  argi[5] = atoi(argv6);
+  // if (servoBus.available())
+  // {
+    argi[0] = atoi(argv1);
+    argi[1] = atoi(argv2);
+    argi[2] = atoi(argv3);
+    argi[3] = atoi(argv4);
+    argi[4] = atoi(argv5);
+    argi[5] = atoi(argv6);
+    argi[6] = atoi(argv7);
 
-  switch (cmd)
-  {
-  case READ_ENCODERS:
-    pos[0] = servo1.pos_read();
-    pos[1] = servo2.pos_read();
-    pos[2] = servo3.pos_read();
-    pos[3] = servo4.pos_read();
-    pos[4] = servo5.pos_read();
-    pos[5] = servo6.pos_read();
-
-    Serial.print(pos[0]);
-    Serial.print(" ");
-    Serial.print(pos[1]);
-    Serial.print(" ");
-    Serial.print(pos[2]);
-    Serial.print(" ");
-    Serial.print(pos[3]);
-    Serial.print(" ");
-    Serial.print(pos[4]);
-    Serial.print(" ");
-    Serial.print(pos[5]);
-    Serial.println("\r");
-    break;
-  case MOTOR_SPEEDS:
-    for(int i = 0; i < 6; i++)
+    switch (cmd)
     {
-      pos_cmd[i] = argi[i] * 10;
+    case READ_ENCODERS:
+      pos[0] = servo1.pos_read();
+      pos[1] = servo2.pos_read();
+      pos[2] = servo3.pos_read();
+      pos[3] = servo4.pos_read();
+      pos[4] = servo5.pos_read();
+      pos[5] = servo6.pos_read();
+
+      Serial.print(pos[5]);
+      Serial.print(" ");
+      Serial.print(pos[4]);
+      Serial.print(" ");
+      Serial.print(pos[3]);
+      Serial.print(" ");
+      Serial.print(pos[2]);
+      Serial.print(" ");
+      Serial.print(pos[1]);
+      Serial.print(" ");
+      Serial.print(pos[0]);
+      Serial.println("\r");
+      break;
+    case MOTOR_SPEEDS:
+      servo1.move_time(argi[5], argi[6]);
+      servo2.move_time(argi[4], argi[6]);
+      servo3.move_time(argi[3], argi[6]);
+      servo4.move_time(argi[2], argi[6]);
+      servo5.move_time(argi[1], argi[6]);
+      servo6.move_time(argi[0], argi[6]);
+
+      Serial.println("\r");
+      break;
+    default:
+      // Serial.println("InvalidCommand\r");
+      break;
     }
-
-    servo1.move_time(pos_cmd[0], 1000);
-    servo2.move_time(pos_cmd[1], 1000);
-    servo3.move_time(pos_cmd[2], 1000);
-    servo4.move_time(pos_cmd[3], 1000);
-    servo5.move_time(pos_cmd[4], 1000);
-    servo6.move_time(pos_cmd[5], 1000);
-
-    Serial.println("OK\r");
-    break;
-  default:
-    Serial.println("Invalid Command\r");
-    break;
-  }
+  // }
+  // else
+  // {
+  //   // Serial.println("ServoNotConnected\r");
+  // }
 }
 
 /* Clear the current command parameters */
@@ -110,13 +114,13 @@ void resetCommand()
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(230400);
   // put your setup code here, to run once:
   pinMode(LED_BUILTIN, OUTPUT);
 
-  Serial.println("Beginning Servo Example");
+  // Serial.println("Beginning Servo Example");
   servoBus.beginOnePinMode(&Serial2, 33);
-  servoBus.debug(true);
+  servoBus.debug(false);
   servoBus.retry = 3;
 
   // Reset the servo positions
@@ -132,7 +136,7 @@ void setup()
   delay(500);
   servo1.move_time(16000, 500);
   delay(500);
-  servo1.move_time(7000, 500);
+  servo1.move_time(11000, 500);
   delay(500);
 
   // Read in servo positions
@@ -154,8 +158,8 @@ void loop()
       // Terminate a command with a CR
       if (chr == 13)
       {
-        if (arg == 6)
-          argv6[arg_index] = NULL;
+        if (arg == 7)
+          argv7[arg_index] = NULL;
 
         runCommand();
         resetCommand();
@@ -196,6 +200,12 @@ void loop()
 
         case 5:
           argv5[arg_index] = NULL;
+          arg++;
+          arg_index = 0;
+          break;
+
+        case 6:
+          argv6[arg_index] = NULL;
           arg++;
           arg_index = 0;
           break;
@@ -242,6 +252,11 @@ void loop()
 
         case 6:
           argv6[arg_index] = chr;
+          arg_index++;
+          break;
+
+        case 7:
+          argv7[arg_index] = chr;
           arg_index++;
           break;
 

@@ -15,61 +15,148 @@
 #include "xarm_control/xarm_hardware.hpp"
 #include <string>
 #include <vector>
+#include <math.h>
 
 #include <iostream>
 
 namespace xarm_control
 {
-CallbackReturn XArmSystemHardware::on_init(const hardware_interface::HardwareInfo & info)
-{
-  if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
+  CallbackReturn XArmSystemHardware::on_init(const hardware_interface::HardwareInfo &info)
   {
-    return CallbackReturn::ERROR;
-  }
-  return hardware_interface::CallbackReturn::SUCCESS;
-}
+    if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
+    {
+      return CallbackReturn::ERROR;
+    }
 
-CallbackReturn XArmSystemHardware::on_configure(const rclcpp_lifecycle::State & /*previous_state*/)
-{
-  // reset values always when configuring hardware
-  for (const auto & [name, descr] : joint_state_interfaces_)
+    // config_.reduction = stoi(info_.hardware_parameters["reduction"]);
+    std::string joints_zero = info_.hardware_parameters["zero_pos"];
+
+    int idx;
+
+    for (int i = 0; i < 6; i++)
+    {
+      idx = joints_zero.find(" ");
+      config_.zero_pos[i] = stod(joints_zero.substr(0, idx));
+      joints_zero = joints_zero.substr(idx + 1);
+    }
+
+    joint_1_.setup(config_.reduction);
+
+    return hardware_interface::CallbackReturn::SUCCESS;
+  }
+
+  CallbackReturn XArmSystemHardware::on_configure(const rclcpp_lifecycle::State & /*previous_state*/)
   {
-    set_state(name, 0.0);
+    // reset values always when configuring hardware
+    for (const auto &[name, descr] : joint_state_interfaces_)
+    {
+      set_state(name, 0.0);
+    }
+    for (const auto &[name, descr] : joint_command_interfaces_)
+    {
+      set_command(name, 0.0);
+    }
+    for (const auto &[name, descr] : sensor_state_interfaces_)
+    {
+      set_state(name, 0.0);
+    }
+
+    RCLCPP_INFO(rclcpp::get_logger("XArmSystemHardware"), "Configuring ...please wait...");
+
+    comms_.connect(config_.device);
+
+    RCLCPP_INFO(rclcpp::get_logger("XArmSystemHardware"), "Successfully configured!");
+
+    return CallbackReturn::SUCCESS;
   }
-  for (const auto & [name, descr] : joint_command_interfaces_)
+
+  CallbackReturn XArmSystemHardware::on_cleanup(const rclcpp_lifecycle::State & /*previous_state*/)
   {
-    set_command(name, 0.0);
+    RCLCPP_INFO(rclcpp::get_logger("XArmSystemHardware"), "Cleaning up ...please wait...");
+
+    comms_.disconnect();
+
+    RCLCPP_INFO(rclcpp::get_logger("XArmSystemHardware"), "Successfully cleaned up!");
+
+    return CallbackReturn::SUCCESS;
   }
-  for (const auto & [name, descr] : sensor_state_interfaces_)
+
+  return_type XArmSystemHardware::read(const rclcpp::Time & /*time*/, const rclcpp::Duration &period)
   {
-    set_state(name, 0.0);
+    double enc_pose[6] = {0.0};
+    bool read_state = false;
+
+    read_state = comms_.read_encoder_values(enc_pose[0], enc_pose[1], enc_pose[2], enc_pose[3],
+                                            enc_pose[4], enc_pose[5]);
+
+    for (std::size_t i = 0; i < info_.joints.size(); i++)
+    {
+      if (info_.joints.size() == 6)
+      {
+        if (i < 5)
+        {
+          enc_pose[i] = (enc_pose[i] - config_.zero_pos[i]) * M_PI / 18000.0; // Convert to radians
+        }
+        else
+        {
+          enc_pose[i] = -(enc_pose[i] - config_.zero_pos[i]) * M_PI / 18000.0 * 1.25; // Convert to radians
+        }
+
+        if (read_state)
+        {
+          const auto name_vel = info_.joints[i].name + "/" + hardware_interface::HW_IF_VELOCITY;
+          const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
+
+          set_state(name_vel, (enc_pose[i] - get_state(name_pos)) / period.seconds());
+          set_state(name_pos, enc_pose[i]);
+        }
+        else
+        {
+          const auto name_vel = info_.joints[i].name + "/" + hardware_interface::HW_IF_VELOCITY;
+          const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
+
+          set_state(name_vel, get_state(name_vel));
+          set_state(name_pos, get_state(name_pos));
+        }
+      }
+      else
+        std::cout << "Not enough joints: " << info_.joints.size() << std::endl;
+    }
+
+    return return_type::OK;
   }
 
-  return CallbackReturn::SUCCESS;
-}
-
-return_type XArmSystemHardware::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & period)
-{
-  // TODO(pac48) set sensor_states_ values from subscriber
-
-  for (std::size_t i = 0; i < info_.joints.size(); i++)
+  return_type XArmSystemHardware::write(const rclcpp::Time &, const rclcpp::Duration &period)
   {
-    const auto name_vel = info_.joints[i].name + "/" + hardware_interface::HW_IF_VELOCITY;
-    const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
-    set_state(name_vel, get_command(name_vel));
-    set_state(name_pos, get_state(name_pos) + get_state(name_vel) * period.seconds());
+    int cmd[7];
+
+    for (std::size_t i = 0; i < info_.joints.size(); i++)
+    {
+      const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
+
+      double joint_command = get_command(name_pos);
+
+      if (i < 5)
+      {
+        joint_command = (joint_command * 18000 / M_PI) + config_.zero_pos[i]; // Convert to radians
+      }
+      else
+      {
+        joint_command = -(joint_command * 18000 * 1.25 / M_PI) + config_.zero_pos[i]; // Convert to radians
+      }
+
+      cmd[i] = int(joint_command);
+    }
+
+    cmd[info_.joints.size()] = int(period.seconds() * 1000.0);
+
+    comms_.set_values(cmd);
+    return return_type::OK;
   }
-  return return_type::OK;
-}
 
-return_type XArmSystemHardware::write(const rclcpp::Time &, const rclcpp::Duration &)
-{
-  return return_type::OK;
-}
-
-}  // namespace xarm_control
+} // namespace xarm_control
 
 #include "pluginlib/class_list_macros.hpp"
 
 PLUGINLIB_EXPORT_CLASS(
-  xarm_control::XArmSystemHardware, hardware_interface::SystemInterface)
+    xarm_control::XArmSystemHardware, hardware_interface::SystemInterface)

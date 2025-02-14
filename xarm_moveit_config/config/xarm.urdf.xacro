@@ -14,7 +14,7 @@
     </xacro:if>
 
     <xacro:unless value="$(arg is_simulation)">
-        <xacro:xarm_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)" is_simulation="$(arg is_simulation)"/>
+        <xacro:xarm_ros2_control name="xarm_control" initial_positions_file="$(arg initial_positions_file)" is_simulation="$(arg is_simulation)"/>
     </xacro:unless>
 
 </robot>

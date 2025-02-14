@@ -8,6 +8,11 @@ The robot description was taken from allProgramming's [ros2_xarm_1s_demos](https
 
 ## Current project content
 
+* **xarm_bringup**: Real robot bringup package.
+* **xarm_control**: ros2_control and serial communication package.
 * **xarm_description**: Robot description package with URDF and mesh files.
 * **xarm_gazebo**: Gazebo harmonic simulation package.
 * **xarm_moveit_config**: MoveIt configuration package with move_group launch and ros2_control files.
+
+## Source installation
+
