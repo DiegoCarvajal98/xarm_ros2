@@ -1,5 +1,5 @@
 <sdf version='1.10'>
-  <world name='empty'>
+  <world name='office'>
     <physics name='1ms' type='ignored'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
@@ -14,38 +14,167 @@
     <atmosphere type='adiabatic'/>
     <scene>
       <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
-      <background>0.699999988 0.699999988 0.699999988 1</background>
       <shadows>true</shadows>
+      <sky/>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
     </scene>
-    <model name='ground_plane'>
+    <model name='Desk'>
+      <static>true</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>6.5549299999999999e-05 0.000211471 0.70750000000000002 -1.6180200217912408e-09 3.6686600493859154e-10 -0.00020100400270702884</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='office'>
+      <static>true</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Office/office.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Office/office.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-0.97999999999999998 -1.6699999999999999 0.02 1.5700000000000003 8.8817841970012523e-16 -1.5700000000000003</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <include>
+      <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/openrobotics/models/office chair/1</uri>
+      <name>OfficeChair</name>
+      <pose>-0.584781 -0.69788300000000003 0.02 0 0 -0.74376100000000012</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sky</uri>
+      <name>sky</name>
+      <pose>0 0 0 0 0 2.6000000000000001</pose>
+    </include>
+    <model name='Eat_to_Live_The_Amazing_NutrientRich_Program_for_Fast_and_Sustained_Weight_Loss_Revised_Edition_Book'>
+      <link name='link_0'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/googleresearch/models/eat_to_live_the_amazing_nutrientrich_program_for_fast_and_sustained_weight_loss_revised_edition_book/1/meshes/model.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision_0'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/googleresearch/models/eat_to_live_the_amazing_nutrientrich_program_for_fast_and_sustained_weight_loss_revised_edition_book/1/meshes/model.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0.14999999999999999 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0.43342500925064081 -0.095198400318622617 0.73626697063446045 -1.5449274169839369 -0.015314764066386844 -0.87590504682154913</pose>
+      <static>true</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='grasspatch'>
       <static>true</static>
       <link name='link'>
         <collision name='collision'>
+          <pose>0 0 0 0 0 0</pose>
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>100 100</size>
+              <size>15 15</size>
             </plane>
           </geometry>
           <surface>
             <friction>
-              <ode/>
+              <ode>
+                <mu>0.5</mu>
+                <mu2>0.5</mu2>
+              </ode>
             </friction>
             <bounce/>
             <contact/>
           </surface>
         </collision>
-        <visual name='visual'>
+        <visual name='visual_s10'>
+          <pose>0 0 0 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>100 100</size>
+              <size>15 15</size>
             </plane>
           </geometry>
           <material>
-            <ambient>0.800000012 0.800000012 0.800000012 1</ambient>
-            <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
-            <specular>0.800000012 0.800000012 0.800000012 1</specular>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>file:///home/diego/.gz/fuel/fuel.gazebosim.org/hexarotor/models/grasspatch/1/materials/textures/grass_dry.png</albedo_map>
+                <normal_map>file:///home/diego/.gz/fuel/fuel.gazebosim.org/hexarotor/models/grasspatch/1/materials/textures/grass_dry.png</normal_map>
+              </metal>
+            </pbr>
           </material>
         </visual>
         <pose>0 0 0 0 0 0</pose>
@@ -63,26 +192,48 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>0 0 0 0 0 0</pose>
+      <pose>4.02529 3.0479400000000001 0 0 0 0</pose>
       <self_collide>false</self_collide>
     </model>
-    <model name='Desk'>
-      <link name='link'>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>file:///home/robotics/xarm_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <uri>file:///home/robotics/xarm_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
-            </mesh>
-          </geometry>
-        </collision>
+    <model name='MonitorAndKeyboard'>
+      <link name='body'>
         <pose>0 0 0 0 0 0</pose>
+        <visual name='visual_monitor'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/monitorandkeyboard/2/files/meshes/monitor.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>0 0 0 0 0 0</pose>
+        </visual>
+        <collision name='collision_monitor'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/monitorandkeyboard/2/files/meshes/monitor.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>0 0 0 0 0 0</pose>
+        </collision>
+        <visual name='visual_keyboard'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/monitorandkeyboard/2/files/meshes/keyboard.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>-0.27000000000000002 0 0 0 0 0</pose>
+        </visual>
+        <collision name='collision_keyboard'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/monitorandkeyboard/2/files/meshes/keyboard.obj</uri>
+              <scale>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale>
+            </mesh>
+          </geometry>
+          <pose>-0.27000000000000002 0 0 0 0 0</pose>
+        </collision>
         <inertial>
           <pose>0 0 0 0 0 0</pose>
           <mass>1</mass>
@@ -97,22 +248,22 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>0 0 0.70999999999999996 0 0 0</pose>
+      <pose>-0.162299 0.21019200000000471 0.71499999770830769 4.627046496048309e-09 1.9099599775253089e-08 1.5700000000001093</pose>
       <static>false</static>
       <self_collide>false</self_collide>
     </model>
-    <light name='sun' type='directional'>
-      <pose>0 0 10 0 0 0</pose>
+    <light name='pointlight' type='point'>
+      <pose>-1 -2 2 0 0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
-      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
-      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
-      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <direction>0 0 -1</direction>
+      <diffuse>0.9 0.9 0.9. 1</diffuse>
+      <specular>0.9 0.9 0.9 1</specular>
       <attenuation>
-        <range>1000</range>
-        <linear>0.01</linear>
-        <constant>0.90000000000000002</constant>
-        <quadratic>0.001</quadratic>
+        <range>20</range>
+        <linear>0.5</linear>
+        <constant>0.20000000000000001</constant>
+        <quadratic>0.01</quadratic>
       </attenuation>
       <spot>
         <inner_angle>0</inner_angle>
