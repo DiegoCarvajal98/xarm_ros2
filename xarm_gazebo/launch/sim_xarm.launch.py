@@ -161,6 +161,7 @@ def launch_setup(context, *args, **kwargs):
         PythonLaunchDescriptionSource(
             [FindPackageShare("xarm_moveit_config"), "/launch", "/move_group.launch.py"]
         ),
+        launch_arguments={'use_sim_time': 'true'}.items()
     )
 
     nodes_to_start = [
