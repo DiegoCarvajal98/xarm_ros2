@@ -97,9 +97,10 @@ namespace xarm_control
         {
           enc_pose[i] = (enc_pose[i] - config_.zero_pos[i]) * M_PI / 18000.0; // Convert to radians
         }
-        else
+        else if (i == 5)
         {
-          enc_pose[i] = -(enc_pose[i] - config_.zero_pos[i]) * M_PI / 18000.0 * 1.25; // Convert to radians
+          // 16248 - 4848
+          enc_pose[i] = (-(enc_pose[i] - config_.zero_pos[i]) * M_PI) / (18000.0 * 1.328); // Convert to radians
         }
 
         if (read_state)
@@ -107,8 +108,24 @@ namespace xarm_control
           const auto name_vel = info_.joints[i].name + "/" + hardware_interface::HW_IF_VELOCITY;
           const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
 
-          set_state(name_vel, (enc_pose[i] - get_state(name_pos)) / period.seconds());
-          set_state(name_pos, enc_pose[i]);
+          const auto mirr_vel = info_.joints[5].name + "/" + hardware_interface::HW_IF_VELOCITY;
+          const auto mirr_pos = info_.joints[5].name + "/" + hardware_interface::HW_IF_POSITION;
+
+          if (i < 6)
+          {
+            set_state(name_vel, (enc_pose[i] - get_state(name_pos)) / period.seconds());
+            set_state(name_pos, enc_pose[i]);
+          }
+          else if (i == 6 or i == 7)
+          {
+            set_state(name_vel, get_state(mirr_vel) * -1);
+            set_state(name_pos, get_state(mirr_pos) * -1);
+          }
+          else if (i == 8)
+          {
+            set_state(name_vel, get_state(mirr_vel) * 1);
+            set_state(name_pos, get_state(mirr_pos) * 1);
+          }
         }
         else
         {
@@ -142,7 +159,7 @@ namespace xarm_control
       }
       else
       {
-        joint_command = -(joint_command * 18000 * 1.25 / M_PI) + config_.zero_pos[i]; // Convert to radians
+        joint_command = -(joint_command * 18000 * 1.328 / M_PI) + config_.zero_pos[i]; // Convert to radians
       }
 
       cmd[i] = int(joint_command);
