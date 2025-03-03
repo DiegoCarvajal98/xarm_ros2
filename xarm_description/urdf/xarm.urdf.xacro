@@ -330,66 +330,7 @@
     </inertial>
   </link>
 
-  <!-- TO-DO: move out to separate file -->
-  <!-- <joint name="depth_joint" type="fixed">
-    <parent link="link2"/>
-    <child link="depth"/>
-    <origin rpy="-1.5708 0 -1.5708" xyz="0.044 -0.0115 0.045"/>
-  </joint>
-  <link name="depth" /> -->
+  <xacro:include filename="camera.urdf.xacro"/>
 
-  <!-- TO-DO: move out to separate file -->
-  <!-- <ros2_control name="xarm" type="system">
-    <hardware>
-      <plugin>ros2_control_xarm/XArm1SSystemHardware</plugin>
-    </hardware>
-
-    <joint name="arm6">
-      <command_interface name="position">
-        <param name="min">-2.09439435</param>
-        <param name="max">2.09439435</param>
-      </command_interface>
-      <state_interface name="position"/>
-    </joint>
-
-    <joint name="arm5">
-      <command_interface name="position">
-        <param name="min">-2.09439435</param>
-        <param name="max">2.09439435</param>
-      </command_interface>
-      <state_interface name="position"/>
-    </joint>
-
-    <joint name="arm4">
-      <command_interface name="position">
-        <param name="min">-2.09439435</param>
-        <param name="max">2.09439435</param>
-      </command_interface>
-      <state_interface name="position"/>
-    </joint>
-
-    <joint name="arm3">
-      <command_interface name="position">
-        <param name="min">-2.09439435</param>
-        <param name="max">2.09439435</param>
-      </command_interface>
-      <state_interface name="position"/>
-    </joint>
-
-    <joint name="arm2">
-      <command_interface name="position">
-        <param name="min">-2.09439435</param>
-        <param name="max">2.09439435</param>
-      </command_interface>
-      <state_interface name="position"/>
-    </joint>
-
-    <joint name="arm1">
-      <command_interface name="position">
-        <param name="min">0</param>
-        <param name="max">0.8464847</param>
-      </command_interface>
-      <state_interface name="position"/>
-    </joint>
-  </ros2_control> -->
+  <xacro:camera ref_link="base_link"/>
 </robot>

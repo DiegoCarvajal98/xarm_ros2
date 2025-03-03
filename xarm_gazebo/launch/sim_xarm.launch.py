@@ -30,6 +30,8 @@
 
 import os
 
+from ament_index_python.packages import get_package_share_directory
+
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
@@ -156,6 +158,24 @@ def launch_setup(context, *args, **kwargs):
         arguments=["xgripper_controller", "-c", "/controller_manager"],
     )
 
+    gz_params = os.path.join(get_package_share_directory("xarm_gazebo"),'config','gz_params.yaml')
+
+    ros_gz_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        arguments=[
+            '--ros-args',
+            'p',
+            f'config_file:={gz_params}',
+        ]
+    )
+
+    ros_gz_image_bridge = Node(
+        package="ros_gz_image",
+        executable="image_bridge",
+        arguments=["/camera/image_raw"]
+    )
+
     # move_group nodes
     move_group = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -173,6 +193,8 @@ def launch_setup(context, *args, **kwargs):
         joint_state_broadcaster_spawner,
         xarm_controller,
         xgripper_controller,
+        ros_gz_bridge,
+        ros_gz_image_bridge,
         move_group,
     ]
 

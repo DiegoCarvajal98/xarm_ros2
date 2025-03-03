@@ -9,6 +9,9 @@
     <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
     <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
     <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
     <gravity>0 0 -9.8000000000000007</gravity>
     <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
@@ -50,7 +53,7 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>6.5549299999999999e-05 0.000211471 0.70750000000000002 -1.6180200217912408e-09 3.6686600493859154e-10 -0.00020100400270702884</pose>
+      <pose>6.5549299999999999e-05 0.000211471 0.70750000000000002 -1.6180200326868616e-09 3.6686600740788733e-10 -0.00020100400406054329</pose>
       <static>false</static>
       <self_collide>false</self_collide>
     </model>
@@ -86,7 +89,7 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>-0.97999999999999998 -1.6699999999999999 0.02 1.5700000000000003 8.8817841970012523e-16 -1.5700000000000003</pose>
+      <pose>-0.97999999999999998 -1.6699999999999999 0.02 1.5700000000000003 1.3322676295501878e-15 -1.5700000000000003</pose>
       <static>false</static>
       <self_collide>false</self_collide>
     </model>
@@ -131,7 +134,7 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>0.43342500925064081 -0.095198400318622617 0.73626697063446045 -1.5449274169839369 -0.015314764066386844 -0.87590504682154913</pose>
+      <pose>0.43342500925064081 -0.095198400318622617 0.73626697063446045 -1.5449274169839364 -0.015314764066386677 -0.87590504682154913</pose>
       <static>true</static>
       <self_collide>false</self_collide>
     </model>
@@ -248,17 +251,28 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>-0.162299 0.21019200000000471 0.71499999770830769 4.627046496048309e-09 1.9099599775253089e-08 1.5700000000001093</pose>
+      <pose>-0.162299 0.21019200000000471 0.71499999770844125 4.627755744238003e-09 1.9098809689349704e-08 1.5700000000001098</pose>
       <static>false</static>
       <self_collide>false</self_collide>
     </model>
+    <include>
+      <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/openrobotics/models/fidget spinner/1</uri>
+      <name>fidget_spinner</name>
+      <pose>0.85090517997741699 -0.64350801706314087 0.60664528608322121 -0.19504599714588011 0.16204499856038704 -2.5995164705162919e-10</pose>
+    </include>
+    <include>
+      <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/openrobotics/models/coke/3</uri>
+      <name>Coke</name>
+      <static>false</static>
+      <pose>0.64080601930618286 -0.6277468204498291 0.59587502479553223 0 0 0</pose>
+    </include>
     <light name='pointlight' type='point'>
       <pose>-1 -2 2 0 0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
       <direction>0 0 -1</direction>
-      <diffuse>0.9 0.9 0.9. 1</diffuse>
-      <specular>0.9 0.9 0.9 1</specular>
+      <diffuse>0.899999976 0.899999976 0.899999976 1</diffuse>
+      <specular>0.899999976 0.899999976 0.899999976 1</specular>
       <attenuation>
         <range>20</range>
         <linear>0.5</linear>
