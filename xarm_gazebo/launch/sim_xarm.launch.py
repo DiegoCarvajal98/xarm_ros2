@@ -38,6 +38,7 @@ from launch.actions import (
     IncludeLaunchDescription,
     OpaqueFunction,
     RegisterEventHandler,
+    SetEnvironmentVariable,
 )
 from launch.conditions import IfCondition, UnlessCondition
 from launch.event_handlers import OnProcessExit
@@ -66,6 +67,10 @@ def launch_setup(context, *args, **kwargs):
     gazebo_world_file = PathJoinSubstitution(
         [FindPackageShare(gazebo_package), "worlds", world]
     )
+
+    gz_model_path = os.path.join(get_package_share_directory("xarm_gazebo"),'models')
+
+    set_gazebo_model_path = SetEnvironmentVariable("GAZEBO_MODEL_PATH", gz_model_path)
 
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(description_package), "config", "moveit.rviz"]
@@ -186,6 +191,7 @@ def launch_setup(context, *args, **kwargs):
 
     nodes_to_start = [
         zenoh_router,
+        set_gazebo_model_path,
         robot_state_publisher_node,
         delay_rviz_after_joint_state_broadcaster_spawner,
         gazebo,

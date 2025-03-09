@@ -27,14 +27,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
+              <uri>file:///overlay_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
+              <uri>file:///overlay_ws/src/xarm_gazebo/models/Desk/Desk.obj</uri>
             </mesh>
           </geometry>
         </collision>
@@ -53,7 +53,7 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>6.5549299999999999e-05 0.000211471 0.70750000000000002 -1.6180200326868616e-09 3.6686600740788733e-10 -0.00020100400406054329</pose>
+      <pose>6.5549299999999999e-05 0.000211471 0.70750000000000002 -1.6180200435824821e-09 3.6686600987718297e-10 -0.00020100400541405767</pose>
       <static>false</static>
       <self_collide>false</self_collide>
     </model>
@@ -63,14 +63,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Office/office.obj</uri>
+              <uri>file:///overlay_ws/src/xarm_gazebo/models/Office/office.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>file:///home/diego/xarm_ws/src/xarm_gazebo/models/Office/office.obj</uri>
+              <uri>file:///overlay_ws/src/xarm_gazebo/models/Office/office.obj</uri>
             </mesh>
           </geometry>
         </collision>
@@ -89,12 +89,12 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>-0.97999999999999998 -1.6699999999999999 0.02 1.5700000000000003 1.3322676295501878e-15 -1.5700000000000003</pose>
+      <pose>-0.97999999999999998 -1.6699999999999999 0.02 1.5700000000000003 1.4432899320127035e-15 -1.5700000000000005</pose>
       <static>false</static>
       <self_collide>false</self_collide>
     </model>
     <include>
-      <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/openrobotics/models/office chair/1</uri>
+      <uri>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/openrobotics/models/office chair/1</uri>
       <name>OfficeChair</name>
       <pose>-0.584781 -0.69788300000000003 0.02 0 0 -0.74376100000000012</pose>
     </include>
@@ -108,14 +108,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/googleresearch/models/eat_to_live_the_amazing_nutrientrich_program_for_fast_and_sustained_weight_loss_revised_edition_book/1/meshes/model.obj</uri>
+              <uri>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/googleresearch/models/eat_to_live_the_amazing_nutrientrich_program_for_fast_and_sustained_weight_loss_revised_edition_book/1/meshes/model.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision_0'>
           <geometry>
             <mesh>
-              <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/googleresearch/models/eat_to_live_the_amazing_nutrientrich_program_for_fast_and_sustained_weight_loss_revised_edition_book/1/meshes/model.obj</uri>
+              <uri>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/googleresearch/models/eat_to_live_the_amazing_nutrientrich_program_for_fast_and_sustained_weight_loss_revised_edition_book/1/meshes/model.obj</uri>
             </mesh>
           </geometry>
         </collision>
@@ -134,7 +134,7 @@
         </inertial>
         <enable_wind>false</enable_wind>
       </link>
-      <pose>0.43342500925064081 -0.095198400318622617 0.73626697063446045 -1.5449274169839364 -0.015314764066386677 -0.87590504682154913</pose>
+      <pose>0.43342500925064081 -0.095198400318622617 0.73626697063446045 -1.5449274169839364 -0.015314764066386511 -0.87590504682154913</pose>
       <static>true</static>
       <self_collide>false</self_collide>
     </model>
@@ -174,8 +174,8 @@
             <specular>1 1 1 1</specular>
             <pbr>
               <metal>
-                <albedo_map>file:///home/diego/.gz/fuel/fuel.gazebosim.org/hexarotor/models/grasspatch/1/materials/textures/grass_dry.png</albedo_map>
-                <normal_map>file:///home/diego/.gz/fuel/fuel.gazebosim.org/hexarotor/models/grasspatch/1/materials/textures/grass_dry.png</normal_map>
+                <albedo_map>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/hexarotor/models/grasspatch/1/materials/textures/grass_dry.png</albedo_map>
+                <normal_map>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/hexarotor/models/grasspatch/1/materials/textures/grass_dry.png</normal_map>
               </metal>
             </pbr>
           </material>
@@ -256,12 +256,12 @@
       <self_collide>false</self_collide>
     </model>
     <include>
-      <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/openrobotics/models/fidget spinner/1</uri>
+      <uri>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/openrobotics/models/fidget spinner/1</uri>
       <name>fidget_spinner</name>
       <pose>0.85090517997741699 -0.64350801706314087 0.60664528608322121 -0.19504599714588011 0.16204499856038704 -2.5995164705162919e-10</pose>
     </include>
     <include>
-      <uri>file:///home/diego/.gz/fuel/fuel.gazebosim.org/openrobotics/models/coke/3</uri>
+      <uri>file:///home/ubuntu/.gz/fuel/fuel.gazebosim.org/openrobotics/models/coke/3</uri>
       <name>Coke</name>
       <static>false</static>
       <pose>0.64080601930618286 -0.6277468204498291 0.59587502479553223 0 0 0</pose>

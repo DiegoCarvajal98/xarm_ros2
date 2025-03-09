@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        ROS_DISTRO: humble
+        ROS_DISTRO: jazzy
       target: base
     # Interactive shell
     stdin_open: true
@@ -26,7 +26,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority
  
-  # Overlay image containing the example source code.
+  # Simulation image containing the example source code.
   overlay:
     extends: base
     image: xarm_control:overlay
@@ -35,6 +35,19 @@ services:
       dockerfile: docker/Dockerfile
       target: overlay
 
+  # xarm robot simulation.
+  sim:
+    extends: overlay
+    command: >
+      ros2 launch xarm_gazebo sim_xarm.launch.py
+
+  # Simulation image containing the example source code.
+  real:
+    extends: overlay
+    command: >
+      ros2 launch xarm_bringup start_xarm.launch.py
+
+  # Development container
   dev:
     extends: overlay
     image: xarm_control:dev
@@ -46,17 +59,17 @@ services:
         - USER_UID=${USER_UID:-1000}
         - USER_GID=${USER_UID:-1000}
         # Set correct USERNAME
-        - USERNAME=${USERNAME:-diego}
+        # - USERNAME=${USERNAME:-ubuntu}
     volumes:
       # Mount colcon build artifacts for faster rebuilds
       - ./.colcon/build/:/overlay_ws/build/:rw
       - ./.colcon/install/:/overlay_ws/install/:rw
       - ./.colcon/log/:/overlay_ws/log/:rw
-      - ./ros2.repos:/overlay_ws/src/ros2.repos:rw
-      - ./uros/:/overlay_ws/src/uros/:rw
+      # Mount source code
       - ./xarm_description/:/overlay_ws/src/xarm_description/:rw
       - ./xarm_moveit_config/:/overlay_ws/src/xarm_moveit_config/:rw
       - ./xarm_gazebo/:/overlay_ws/src/xarm_gazebo/:rw
-      - ./xarm_support/:/overlay_ws/src/xarm_support/:rw
-    user: ${USERNAME:-diego}
+      - ./xarm_bringup/:/overlay_ws/src/xarm_bringup/:rw
+      - ./xarm_control/:/overlay_ws/src/xarm_control/:rw
+    # user: ${USERNAME:-ubuntu}
     command: sleep infinity

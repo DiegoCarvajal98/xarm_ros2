@@ -9,7 +9,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 3
-map_Kd /home/diego/Documents/Blender/tiling_29-4K/4K-tiling_29_basecolor.jpg
+map_Kd /overlay_ws/src/xarm_gazebo/models/Office/textures/tiling_29-4K/4K-tiling_29_basecolor.jpg
 
 newmtl Frame
 Ns 250.000000
@@ -19,7 +19,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd /home/diego/Documents/Blender/aluminium_texture-4K/4K-aluminium_1-ao.jpg
+map_Kd /overlay_ws/src/xarm_gazebo/models/Office/textures/aluminium_texture-4K/4K-aluminium_1-ao.jpg
 
 newmtl Wall
 Ns 250.000000
@@ -29,4 +29,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd /home/diego/Documents/Blender/brick_wall_4-4K/4K-brick_wall_4-ao.jpg
+map_Kd /overlay_ws/src/xarm_gazebo/models/Office/textures/brick_wall_4-4K/4K-brick_wall_4-ao.jpg
