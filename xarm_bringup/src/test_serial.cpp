@@ -37,9 +37,6 @@ public:
             idx = data.find(" ");
             pos[i] = stoi(data.substr(0, idx));
             data = data.substr(idx + 1);
-
-            if (i < 6)
-                pos[i] = pos[i] * 100;
         }
 
         pos[5] = zero_pos[5] - pos[5] * 1.25;
@@ -49,8 +46,10 @@ public:
         pos[1] = zero_pos[1] + pos[1];
         pos[0] = zero_pos[0] + pos[0];
 
+        RCLCPP_INFO(this->get_logger(), "Reading encoder");
         read_encoder_values();
 
+        RCLCPP_INFO(this->get_logger(), "Setting joints");
         set_values(pos);
     }
 
@@ -58,7 +57,7 @@ public:
     {
         //   timeout_ms_ = timeout_ms;
         serial_conn_.Open("/dev/ttyUSB0");
-        serial_conn_.SetBaudRate(LibSerial::BaudRate::BAUD_230400);
+        serial_conn_.SetBaudRate(LibSerial::BaudRate::BAUD_57600);
 
         return;
     }
@@ -129,19 +128,21 @@ public:
         std::string r_pose;
         std::string delimiter = " ";
 
-        int pos = 0.0;
-
-        // RCLCPP_INFO(this->get_logger(), token.c_str());
+        double pos = 0.0;
 
         if (token != "ServoNotConnected\r")
         {
-            for (int i = 0; i < 6; i++)
-            {
-                split_ind = token.find(delimiter);
-                r_pose = token.substr(0, split_ind);
-                token = token.substr(split_ind + 1);
-                pos = stoi(r_pose);
-                RCLCPP_INFO(this->get_logger(), "%d", pos);
+            if (!token.empty()){
+                RCLCPP_INFO(this->get_logger(), "Token: %s", token.c_str());
+                for (int i = 0; i < 6; i++)
+                {
+                    split_ind = token.find(delimiter);
+                    r_pose = token.substr(0, split_ind);
+                    token = token.substr(split_ind + 1);
+                    std::cout << r_pose << std::endl;
+                    pos = stod(r_pose);
+                    // RCLCPP_INFO(this->get_logger(), "Joint pos %s", r_pose);
+                }
             }
         } else {
             RCLCPP_ERROR(this->get_logger(), "Servomotors not connected");
@@ -181,7 +182,7 @@ private:
     int32_t timeout_ms_;
     LibSerial::SerialPort serial_conn_;
     int state;
-    int zero_pos[6] = {11750, 12250, 11750, 12000, 11000, 16800};
+    int zero_pos[6] = {46, 100, 120, 120, 120, 120};
 };
 
 int main(int argc, char *argv[])

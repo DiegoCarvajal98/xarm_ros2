@@ -36,16 +36,16 @@ services:
       target: overlay
 
   # xarm robot simulation.
-  sim:
-    extends: overlay
-    command: >
-      ros2 launch xarm_gazebo sim_xarm.launch.py
+  # sim:
+  #   extends: overlay
+  #   command: >
+  #     ros2 launch xarm_gazebo sim_xarm.launch.py
 
-  # Simulation image containing the example source code.
-  real:
-    extends: overlay
-    command: >
-      ros2 launch xarm_bringup start_xarm.launch.py
+  # # Simulation image containing the example source code.
+  # real:
+  #   extends: overlay
+  #   command: >
+  #     ros2 launch xarm_bringup start_xarm.launch.py
 
   # Development container
   dev:
@@ -71,5 +71,7 @@ services:
       - ./xarm_gazebo/:/overlay_ws/src/xarm_gazebo/:rw
       - ./xarm_bringup/:/overlay_ws/src/xarm_bringup/:rw
       - ./xarm_control/:/overlay_ws/src/xarm_control/:rw
+      - ./xarm_app/:/overlay_ws/src/xarm_app/:rw
+      - /dev:/dev
     # user: ${USERNAME:-ubuntu}
     command: sleep infinity

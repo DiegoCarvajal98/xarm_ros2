@@ -28,10 +28,15 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-rmw-zenoh-cpp \
     ros-${ROS_DISTRO}-moveit-* \
-    libserial-dev
+    libserial-dev \
+    python3.12-venv
     # ros-${ROS_DISTRO}-topic-based-ros2-control
     # ros-${ROS_DISTRO}-gazebo-ros2-control \
     # ros-${ROS_DISTRO}-ros2-control
+
+# RUN python3 -m venv /overlay_ws/venv \
+#     && source /venv/bin/activate \
+#     && pip3 install pyqt5
 
 ENV RMW_IMPLEMENTATION=rmw_zenoh_cpp
 
@@ -47,6 +52,7 @@ WORKDIR /overlay_ws
 COPY ./xarm_gazebo/ /overlay_ws/src/xarm_gazebo/
 COPY ./xarm_bringup/ /overlay_ws/src/xarm_bringup/
 COPY ./xarm_control/ /overlay_ws/src/xarm_control/
+COPY ./xarm_app/ /overlay_ws/src/xarm_app/
 COPY ./xarm_gazebo/models/fuel.gazebosim.org/ /home/ubuntu/.gz/fuel/fuel.gazebosim.org/
 
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
@@ -92,6 +98,7 @@ RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
 #     && chown -R ${USER_UID}:${USER_GID} /home/${USERNAME}
 
 RUN sudo usermod -aG dialout ${USERNAME}
+RUN sudo passwd -d ${USERNAME}
 
 # Set the ownership of the overlay workspace to the new user
 RUN chown -R ${USER_UID}:${USER_GID} /overlay_ws/

@@ -89,19 +89,24 @@ namespace xarm_control
     read_state = comms_.read_encoder_values(enc_pose[0], enc_pose[1], enc_pose[2], enc_pose[3],
                                             enc_pose[4], enc_pose[5]);
 
-    for (std::size_t i = 0; i < info_.joints.size(); i++)
-    {
+      for (std::size_t i = 0; i < info_.joints.size(); i++)
+      {
+      // RCLCPP_INFO(rclcpp::get_logger("XArmSystemHardware"), "Joint %s state: %f", info_.joints[i].name.c_str(), enc_pose[i]);
       if (info_.joints.size() == 6)
       {
+        // std::cout << "Joint: " << info_.joints[i].name << ", angle (degs): " << enc_pose[i] << std::endl; 
+
         if (i < 5)
         {
-          enc_pose[i] = (enc_pose[i] - config_.zero_pos[i]) * M_PI / 18000.0; // Convert to radians
+          enc_pose[i] = ((enc_pose[i] - config_.zero_pos[i]) * M_PI) / 180.0; // Convert to radians
         }
         else if (i == 5)
         {
           // 16248 - 4848
-          enc_pose[i] = (-(enc_pose[i] - config_.zero_pos[i]) * M_PI) / (18000.0 * 1.328); // Convert to radians
+          enc_pose[i] = (-(enc_pose[i] - config_.zero_pos[i]) * M_PI) / (180.0 * 1.328); // Convert to radians
         }
+
+        // std::cout << "Joint: " << info_.joints[i].name << ", angle (rads): " << enc_pose[i] << ", zero: " << config_.zero_pos[i] << std::endl; 
 
         if (read_state)
         {
@@ -153,13 +158,17 @@ namespace xarm_control
 
       double joint_command = get_command(name_pos);
 
+      // std::cout << "Joint: " << info_.joints[i].name << ", Command (rads): " << joint_command << std::endl; 
+
+      // RCLCPP_INFO(rclcpp::get_logger("XArmSystemHardware"), "Joint %s command: %f", info_.joints[i].name.c_str(), joint_command);
+
       if (i < 5)
       {
-        joint_command = (joint_command * 18000 / M_PI) + config_.zero_pos[i]; // Convert to radians
+        joint_command = (joint_command * 180 / M_PI) + config_.zero_pos[i]; // Convert to radians
       }
       else
       {
-        joint_command = -(joint_command * 18000 * 1.328 / M_PI) + config_.zero_pos[i]; // Convert to radians
+        joint_command = -(joint_command * 180 * 1.328 / M_PI) + config_.zero_pos[i]; // Convert to radians
       }
 
       cmd[i] = int(joint_command);

@@ -18,6 +18,9 @@ def generate_move_group_launch(moveit_config):
     # do not copy dynamics information from /joint_states to internal robot monitoring
     # default to false, because almost nothing in move_group relies on this information
     ld.add_action(DeclareBooleanLaunchArg("monitor_dynamics", default_value=False))
+    ld.add_action(
+        DeclareBooleanLaunchArg("use_sim_time", default_value=True)
+    )
     should_publish = LaunchConfiguration("publish_monitored_planning_scene")
     move_group_configuration = {
         "publish_robot_description_semantic": True,
@@ -35,7 +38,7 @@ def generate_move_group_launch(moveit_config):
         "publish_state_updates": should_publish,
         "publish_transforms_updates": should_publish,
         "monitor_dynamics": False,
-        "use_sim_time": True
+        "use_sim_time": LaunchConfiguration("use_sim_time")
     }
     move_group_params = [
         moveit_config.to_dict(),

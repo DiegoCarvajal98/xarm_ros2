@@ -19,7 +19,7 @@ public:
     {
         //   timeout_ms_ = timeout_ms;
         serial_conn_.Open("/dev/ttyUSB0");
-        serial_conn_.SetBaudRate(LibSerial::BaudRate::BAUD_230400);
+        serial_conn_.SetBaudRate(LibSerial::BaudRate::BAUD_57600);
 
         return;
     }
@@ -87,7 +87,7 @@ public:
     {
         std::string token = send_msg("e\r");
 
-        double pos_arr[6] = {0.0};
+        // std::cout << "Received encoder values: " << token << std::endl;
 
         int split_ind = 0;
         std::string r_pose;
@@ -121,6 +121,8 @@ public:
 
                 // std::cout << r_pose << std::endl;
                 pos_arr[i] = stod(r_pose);
+
+                // std::cout << "Angle joint " << i+1 << " " << pos_arr[i] << " deg" << std::endl;
             }
 
             pos1 = pos_arr[0];
@@ -150,6 +152,7 @@ public:
         for (int i = 0; i < 7; i++)
         {
             ss << " " << msg[i];
+            pos_arr[i] = msg[i];
         }
 
         ss << "\r";
@@ -165,7 +168,9 @@ public:
 private:
     int32_t timeout_ms_;
     LibSerial::SerialPort serial_conn_;
-    int zero_pos[6] = {1680, 1100, 1200, 1175, 1225, 1175};
+    double zero_pos[6] = {120.0, 120.0, 120.0, 120.0, 110.0, 46.0};
+
+    double pos_arr[6] = {0.0};
 };
 
 #endif // XARM_CONTROL_ESP_COMMS_HPP
