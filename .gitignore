@@ -1,1 +1,3 @@
-.colcon/
+.colcon/build/*
+.colcon/log/*
+.colcon/install/*
