@@ -23,9 +23,9 @@
         <xacro:unless value="${is_simulation}">
           <plugin>xarm_control/XArmSystemHardware</plugin>
           <param name="device">/dev/ttyUSB0</param>
-          <param name="zero_pos">11750 12250 11750 12000 11000 16800</param>
+          <param name="zero_pos">120 120 120 120 110 46</param>
           <param name="baud_rate">230400</param>
-          <param name="timeout_ms">1000</param>
+          <param name="timeout_ms">50</param>
           <param name="reduction">15.0</param>
         </xacro:unless>
       </hardware>
@@ -41,8 +41,10 @@
       </joint>
       <joint name="arm5">
         <command_interface name="position">
-          <param name="min">-1.92</param>
-          <param name="max">1.92</param>
+          <!-- <param name="min">-1.92</param> -->
+          <!-- <param name="max">1.92</param> -->
+          <param name="min">-1.5708</param>
+          <param name="max">1.5708</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['arm5']}</param>
@@ -61,8 +63,10 @@
       </joint>
       <joint name="arm3">
         <command_interface name="position">
-          <param name="min">-1.92</param>
-          <param name="max">1.92</param>
+          <!-- <param name="min">-1.92</param> -->
+          <!-- <param name="max">1.92</param> -->
+          <param name="min">-1.85</param>
+          <param name="max">1.85</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['arm3']}</param>

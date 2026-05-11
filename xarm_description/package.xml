@@ -3,7 +3,7 @@
 <package format="3">
   <name>xarm_description</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>xarm robot description package</description>
   <maintainer email="diego98cs@gmail.com">diego</maintainer>
   <license>TODO: License declaration</license>
 

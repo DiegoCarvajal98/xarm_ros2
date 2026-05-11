@@ -1,9 +1,9 @@
 # Default initial positions for xarm's ros2_control fake system
 
 initial_positions:
-  arm1: 0
-  arm2: 0
-  arm3: 0
-  arm4: 0
-  arm5: 0
-  arm6: 0
+  arm1: 0.0
+  arm2: 0.0
+  arm3: 0.0
+  arm4: 0.0
+  arm5: 0.0
+  arm6: 0.0
