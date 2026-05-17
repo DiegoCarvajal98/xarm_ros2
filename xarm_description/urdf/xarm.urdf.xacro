@@ -206,7 +206,7 @@
 
   <joint name="arm1" type="revolute">
     <!-- <limit effort="1000" lower="0" upper="1.8326" velocity="1.0" /> -->
-    <limit effort="1000" lower="0" upper="0.8464847" velocity="1.0" />
+    <limit effort="1000" lower="0" upper="2.1118483949" velocity="1.5" />
     <parent link="link2" />
     <child link="link1" />
     <origin xyz="-0.0015 -0.014 0.0315" rpy="0.0 0.0 0.0" />

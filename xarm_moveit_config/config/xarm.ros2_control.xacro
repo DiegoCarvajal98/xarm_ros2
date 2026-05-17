@@ -23,7 +23,7 @@
         <xacro:unless value="${is_simulation}">
           <plugin>xarm_control/XArmSystemHardware</plugin>
           <param name="device">/dev/ttyUSB0</param>
-          <param name="zero_pos">120 120 120 120 110 46</param>
+          <param name="zero_pos">120 120 120 120 110 170</param>
           <param name="baud_rate">230400</param>
           <param name="timeout_ms">50</param>
           <param name="reduction">15.0</param>
