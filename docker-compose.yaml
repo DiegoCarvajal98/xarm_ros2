@@ -72,6 +72,7 @@ services:
       - ./xarm_bringup/:/overlay_ws/src/xarm_bringup/:rw
       - ./xarm_control/:/overlay_ws/src/xarm_control/:rw
       - ./xarm_app/:/overlay_ws/src/xarm_app/:rw
+      - ./xarm_behavior/:/overlay_ws/src/xarm_behavior/:rw
       - /dev:/dev
     # user: ${USERNAME:-ubuntu}
     command: sleep infinity
