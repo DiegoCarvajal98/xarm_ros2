@@ -8,6 +8,8 @@ LX16A motor4(4, Serial2); // 0-24000 (0-240 degrees)
 LX16A motor5(5, Serial2); // 0-24000 (0-240 degrees)
 LX16A motor6(6, Serial2); // 0-24000 (0-240 degrees)
 
+#define torque_pin 2
+
 #define READ_ENCODERS 'e'
 #define MOTOR_SPEEDS 'm'
 
@@ -38,6 +40,10 @@ double argi[7];
 int pos_cmd[7]; // Servo pos commands
 
 double pos[6] = {0, 0, 0, 0, 0, 0}; // servo positions
+
+// Define variables
+int disable_torque{0};
+bool torque_state{false};
 
 void runCommand()
 {
@@ -75,14 +81,16 @@ void runCommand()
       Serial.println("\r");
       break;
     case MOTOR_SPEEDS:
-      motor1.move(argi[5], argi[6]);
-      motor2.move(argi[4], argi[6]);
-      motor3.move(argi[3], argi[6]);
-      motor4.move(argi[2], argi[6]);
-      motor5.move(argi[1], argi[6]);
-      motor6.move(argi[0], argi[6]);
-
-      Serial.println("\r");
+      if (torque_state){
+        motor1.move(argi[5], argi[6]);
+        motor2.move(argi[4], argi[6]);
+        motor3.move(argi[3], argi[6]);
+        motor4.move(argi[2], argi[6]);
+        motor5.move(argi[1], argi[6]);
+        motor6.move(argi[0], argi[6]);
+        
+        Serial.println("\r");
+      }
       break;
     default:
       // Serial.println("InvalidCommand\r");
@@ -111,10 +119,50 @@ void resetCommand()
   arg_index = 0;
 }
 
+/* Disable motors torque */
+void torque_control(bool disable){
+  if (disable && torque_state) {
+    motor1.disableTorque();
+    motor2.disableTorque();
+    motor3.disableTorque();
+    motor4.disableTorque();
+    motor5.disableTorque();
+    motor6.disableTorque();
+
+    motor1.ledPowerOff();
+    motor2.ledPowerOff();
+    motor3.ledPowerOff();
+    motor4.ledPowerOff();
+    motor5.ledPowerOff();
+    motor6.ledPowerOff();
+
+    torque_state = false;
+  } else if (!disable && !torque_state) {    
+    motor1.enableTorque();
+    motor2.enableTorque();
+    motor3.enableTorque();
+    motor4.enableTorque();
+    motor5.enableTorque();
+    motor6.enableTorque();
+
+    motor1.ledPowerOn();
+    motor2.ledPowerOn();
+    motor3.ledPowerOn();
+    motor4.ledPowerOn();
+    motor5.ledPowerOn();
+    motor6.ledPowerOn();
+
+    torque_state = true;
+  }
+}
+
 void setup()
 {
   Serial.begin(57600);
   Serial2.begin(115200, SERIAL_8N1, 16, 17);
+
+  // Define pin modes
+  pinMode(torque_pin, INPUT);
 
   // Initialize servos
   motor1.initialize();
@@ -142,7 +190,7 @@ void setup()
   motor6.setServoMode();
 
   // Reset the servo positions
-  motor1.move(46, 500); // Home: 46
+  motor1.move(50, 500); // Home: 50
   motor2.move(110, 500); // Home: 110
   motor3.move(120, 500); // Home: 120
   motor4.move(120, 500); // Home: 120
@@ -156,10 +204,6 @@ void setup()
   delay(500);
   motor1.move(50, 500);
   delay(500);
-
-  // Read in servo positions
-  pos[0] = motor1.getPhysicalAngle();
-  delay(1000);
 }
 
 void loop()
@@ -284,4 +328,9 @@ void loop()
       }
     }
   }
+
+  // Torque control
+  disable_torque = digitalRead(torque_pin);
+
+  torque_control(disable_torque);
 }
